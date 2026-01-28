@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>fish</title> 
+<title>fish</title>
 <style>
   body { margin:0; font-family: sans-serif; background:#f6f5f3; }
   a { text-decoration:none; color:inherit; }
@@ -15,7 +15,39 @@
     position:fixed;
     left:20px;
     top:15px;
-    z-index: 1003; /* 最上層 */
+    z-index: 1003;
+  }
+
+  /* 左側滑出選單 */
+  .side-menu {
+    height: 100%;
+    width: 250px; 
+    position: fixed;
+    top: 0;
+    left: -250px; /* 初始隱藏 */
+    background: #fff;
+    overflow-x: hidden;
+    transition: left 0.3s ease;
+    padding: 60px 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+    z-index: 1002;
+  }
+  .side-menu.active {
+    left: 0;
+  }
+
+  /* 關閉按鈕 */
+  .side-menu .close-btn {
+    font-size:30px;
+    cursor:pointer;
+    position:absolute;
+    top:15px;
+    right:20px;
+    z-index: 1002;
+    display: none;
+  }
+  .side-menu.active .close-btn {
+    display: block;
   }
 
   /* 遮罩 */
@@ -26,37 +58,13 @@
     width:100%;
     height:100%;
     background: rgba(0,0,0,0);
-    transition: 0.3s;
+    transition: background 0.3s ease;
     pointer-events: none; 
-    z-index: 1001; /* 在 side-menu 下 */
+    z-index: 1001;
   }
   .overlay.active {
     background: rgba(0,0,0,0.3);
-    pointer-events: auto; 
-  }
-
-  /* 左側滑出選單 */
-  .side-menu {
-    height: 100%;
-    width: 250px; 
-    position: fixed;
-    top: 0;
-    left: -250px; /* 完全隱藏 */
-    background: #fff;
-    overflow-x: hidden;
-    transition: 0.3s;
-    padding: 60px 20px;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
-    z-index: 1002; /* 遮罩上面，但比漢堡低 */
-  }
-
-  .side-menu .close-btn {
-    font-size:30px;
-    cursor:pointer;
-    position:absolute;
-    top:15px;
-    right:20px;
-    z-index: 1002; /* 同 side-menu */
+    pointer-events: auto;
   }
 
   /* Header */
@@ -64,13 +72,15 @@
     background:#fff;
     padding:10px 60px;
     display:flex;
-    justify-content:flex-end;
+    justify-content:space-between;
+    align-items:center;
     gap:20px;
     box-shadow:0 2px 5px rgba(0,0,0,0.1);
     position:sticky;
     top:0;
     z-index:999;
   }
+  .header-left { display:flex; align-items:center; gap:15px; }
   .icon-btn img { width:28px; height:28px; vertical-align:middle; }
 
   /* Hero 輪播圖 */
@@ -128,10 +138,15 @@
 
 <!-- Header -->
 <div class="main-header">
-  <a href="#" class="icon-btn"><img src="https://files.catbox.moe/s21b00.png" alt="會員登入"></a>
-  <a href="#" class="icon-btn"><img src="https://files.catbox.moe/4mscbu.png" alt="購物車"></a>
-  <a href="#">商家簡介</a>
-  <a href="#">最新消息</a>
+  <div class="header-left">
+    <span style="font-weight:bold; cursor:pointer;">全部商品</span>
+  </div>
+  <div class="header-right">
+    <a href="#" class="icon-btn"><img src="https://files.catbox.moe/s21b00.png" alt="會員登入"></a>
+    <a href="#" class="icon-btn"><img src="https://files.catbox.moe/4mscbu.png" alt="購物車"></a>
+    <a href="#">商家簡介</a>
+    <a href="#">最新消息</a>
+  </div>
 </div>
 
 <!-- Hero 輪播圖 -->
@@ -212,17 +227,17 @@
   const overlay = document.getElementById('overlay');
 
   hamburger.addEventListener('click', () => {
-    sideMenu.style.left = '0';
+    sideMenu.classList.add('active');
     overlay.classList.add('active');
   });
 
-  closeBtn.addEventListener('click', closeMenu);
-  overlay.addEventListener('click', closeMenu);
-
   function closeMenu() {
-    sideMenu.style.left = '-250px';
+    sideMenu.classList.remove('active');
     overlay.classList.remove('active');
   }
+
+  closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
 </script>
 
 </body>
