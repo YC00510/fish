@@ -120,7 +120,8 @@
   /* Hero 輪播圖 */
 .hero {
   width: 100%;
-  aspect-ratio: 16/9; /* 現代瀏覽器支援，會自動算高度 */
+  aspect-ratio: 16/9;   /* 保持比例 */
+  max-height: 200px;    /* 最大高度限制，改成你想要的 */
   overflow: hidden;
   position: relative;
 }
