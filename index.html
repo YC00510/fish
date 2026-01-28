@@ -55,12 +55,19 @@ a { text-decoration:none; color:inherit; }
 .search-box { display:flex; align-items:center; border:1px solid #ddd; border-radius:25px; overflow:hidden; height:36px; }
 .search-box input { border:none; padding:0 10px; outline:none; height:100%; font-size:14px; }
 .search-box button { border:none; background:#d1e0e0; cursor:pointer; height:100%; padding:0 10px; display:flex; align-items:center; justify-content:center; transition: background 0.3s; }
-.search-box button:hover { background:#009900; }
+.search-box button:hover { background:#004d4d; }
 .search-box img { width:20px; height:20px; }
 
 /* Header 右側 */
-.header-right a { margin-left:50px; }
-.header-right img { width:28px; height:28px; }
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* 控制 icon 之間間距 */
+}
+.header-right a {
+  margin-left: 0; /* 清掉原本的 margin */
+}
+
 
 /* Hero 輪播圖 */
 .hero {
