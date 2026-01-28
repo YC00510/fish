@@ -118,21 +118,19 @@
   .search-box img { width:20px; height:20px; }
 
   /* Hero 輪播圖 */
-
 .hero {
-  max-width: 100%;
-    width: auto;
-    height: auto;
-    vertical-align: middle;
-    border: 0;
--ms-interpolation-mode: bicubic;
+  position: relative;
+  width: 80%;
+  padding-top: 25%;       /* 高度 = 寬度的 25%，比例可以調整 */
+  max-height: 200px;      /* 最大高度，不會太高 */
+  overflow: hidden;
 }
 
 .hero img {
   position: absolute;
   top: 0; left: 0;
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   object-fit: cover;
   display: none;
 }
