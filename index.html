@@ -24,22 +24,45 @@
   }
   .header-left, .header-right { display:flex; align-items:center; gap:15px; flex-wrap:wrap; }
 
-  /* 搜尋框 */
-  .search-box {
-    display:flex;
-    align-items:center;
-    border:1px solid #ddd;
-    border-radius:25px;
-    overflow:hidden;
-    height:36px;
-  }
-  .search-box input { border:none; padding:0 10px; outline:none; height:100%; font-size:14px; }
-  .search-box button {
-    border:none; background:#00c300; cursor:pointer; height:100%;
-    padding:0 10px; display:flex; align-items:center; justify-content:center;
-    transition: background 0.3s;
-  }
-  .search-box button:hover { background:#009900; }
+/* 搜尋框 */
+.search-box {
+  display:flex;
+  align-items:center;
+  border:1px solid #ddd;
+  border-radius:25px;
+  overflow:hidden;
+  height:36px;
+}
+
+.search-box input {
+  border:none;
+  padding:0 10px;
+  outline:none;
+  height:100%;
+  font-size:14px;
+}
+
+.search-box button {
+  border:none;
+  background:#00c300;
+  cursor:pointer;
+  height:100%;
+  padding:0 10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition: background 0.3s;
+}
+
+.search-box button:hover {
+  background:#009900;
+}
+
+.search-box img {
+  display:block;
+  width:20px;
+  height:20px;
+}
 
   /* 下拉選單 */
   .dropdown { position: relative; }
@@ -208,46 +231,68 @@
 
 <script>
   // 輪播圖
-  const heroImages = document.querySelectorAll('.hero img');
-  let current = 0;
-  setInterval(() => {
-    heroImages[current].classList.remove('active');
-    current = (current + 1) % heroImages.length;
-    heroImages[current].classList.add('active');
-  }, 5000);
+  // Hero 輪播圖
+const heroImages = document.querySelectorAll('.hero img');
+let current = 0;
+setInterval(() => {
+  heroImages[current].classList.remove('active');
+  current = (current + 1) % heroImages.length;
+  heroImages[current].classList.add('active');
+}, 5000);
 
-  // 下拉選單
-  const dropdowns = document.querySelectorAll('.dropdown');
-  dropdowns.forEach(drop => {
-    const btn = drop.querySelector('.drop-btn');
-    const menu = drop.querySelector('.drop-menu');
-    btn.addEventListener('click', e => {
-      e.stopPropagation();
-      dropdowns.forEach(d => {
-        if(d !== drop){
-          d.querySelector('.drop-menu').classList.remove('show');
-          d.querySelector('.drop-btn').classList.remove('active');
-        }
-      });
-      menu.classList.toggle('show');
-      btn.classList.toggle('active');
-    });
-  });
-  document.addEventListener('click', () => {
+// Header 多下拉選單：同時只開一個
+const dropdowns = document.querySelectorAll('.dropdown');
+dropdowns.forEach(drop => {
+  const btn = drop.querySelector('.drop-btn');
+  const menu = drop.querySelector('.drop-menu');
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    // 關閉其他下拉
     dropdowns.forEach(d => {
-      d.querySelector('.drop-menu').classList.remove('show');
-      d.querySelector('.drop-btn').classList.remove('active');
+      if(d !== drop){
+        d.querySelector('.drop-menu').classList.remove('show');
+        d.querySelector('.drop-btn').classList.remove('active');
+      }
     });
-  });
-  document.querySelectorAll('.drop-menu').forEach(menu => {
-    menu.addEventListener('click', e => e.stopPropagation());
-  });
 
-  // 搜尋按鈕
-  document.getElementById('searchBtn').addEventListener('click', () => {
-    const keyword = document.getElementById('searchInput').value.trim();
-    if(keyword) alert("搜尋關鍵字：" + keyword);
+    // 切換自己
+    menu.classList.toggle('show');
+    btn.classList.toggle('active');
   });
+});
+
+// 點空白收起所有下拉
+document.addEventListener('click', () => {
+  dropdowns.forEach(d => {
+    d.querySelector('.drop-menu').classList.remove('show');
+    d.querySelector('.drop-btn').classList.remove('active');
+  });
+});
+
+// 點下拉內容不收起
+document.querySelectorAll('.drop-menu').forEach(menu => {
+  menu.addEventListener('click', e => e.stopPropagation());
+});
+
+// 商品搜尋（同一頁過濾）
+document.getElementById('searchBtn').addEventListener('click', () => {
+  const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+  const products = document.querySelectorAll('.product-card');
+  products.forEach(card => {
+    const title = card.querySelector('h4').textContent.toLowerCase();
+    card.style.display = title.includes(keyword) ? 'block' : 'none';
+  });
+});
+
+// 可以按 Enter 鍵也觸發搜尋
+document.getElementById('searchInput').addEventListener('keypress', (e) => {
+  if(e.key === 'Enter'){
+    document.getElementById('searchBtn').click();
+  }
+});
+
 </script>
 
 </body>
