@@ -24,6 +24,45 @@
   .header-left { display:flex; align-items:center; gap:15px; }
   .header-right { display:flex; align-items:center; gap:20px; }
 
+  /* 搜尋框 */
+.search-box {
+  display:flex;
+  align-items:center;
+  border:1px solid #ddd;
+  border-radius:25px;
+  overflow:hidden;
+  height:36px;
+}
+
+.search-box input {
+  border:none;
+  padding:0 10px;
+  outline:none;
+  height:100%;
+  font-size:14px;
+  border-radius:0;
+}
+
+.search-box button {
+  border:none;
+  background:#00c300;
+  cursor:pointer;
+  height:100%;
+  padding:0 10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition: background 0.3s;
+}
+
+.search-box button:hover {
+  background:#009900;
+}
+
+.search-box img {
+  display:block;
+}
+
   /* 下拉選單 */
   .dropdown { position: relative; }
   .drop-btn {
@@ -308,6 +347,15 @@
   document.querySelectorAll('.drop-menu').forEach(menu => {
     menu.addEventListener('click', e => e.stopPropagation());
   });
+
+  document.getElementById('searchBtn').addEventListener('click', () => {
+  const keyword = document.getElementById('searchInput').value.trim();
+  if(keyword) {
+    alert("搜尋關鍵字：" + keyword);
+    // 這裡可以改成導向搜尋結果頁或做 AJAX 搜尋
+  }
+});
+
 </script>
 
 </body>
