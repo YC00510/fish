@@ -21,10 +21,10 @@
   /* 左側滑出選單 */
   .side-menu {
     height: 100%;
-    width: 250px; 
+    width: 280px; 
     position: fixed;
     top: 0;
-    left: -250px; /* 初始隱藏 */
+    left: -280px; /* 初始隱藏 */
     background: #fff;
     overflow-x: hidden;
     transition: left 0.3s ease;
@@ -35,6 +35,8 @@
   .side-menu.active {
     left: 0;
   }
+
+  
 
   /* 關閉按鈕 */
   .side-menu .close-btn {
@@ -98,7 +100,12 @@
   /* Footer */
   footer { background:#333; color:#fff; padding:20px; display:flex; flex-wrap:wrap; gap:20px; justify-content:space-between; }
   footer div { min-width:150px; }
+  text-align: right; 
   footer a { color:#fff; display:block; margin:3px 0; }
+  /* Footer 標題和連結間距縮短 */
+footer h4 {
+  margin-bottom: 5px; /* 原本可能太大，縮短一點 */
+}
 
   /* 社群 icon */
   .social-icons img { width:24px; height:24px; margin-right:8px; }
@@ -120,19 +127,18 @@
   <div class="close-btn" id="closeBtn">&times;</div>
   <h3>商品分類</h3>
   <ul>
-    <li>魚1</li>
-    <li>魚2</li>
-    <li>魚3</li>
-    <li>魚4</li>
-    <li>魚5</li>
-    <li>魚6</li>
-    <li>魚7</li>
-    <li>魚8</li>
-    <li>魚9</li>
-    <li>魚10</li>
-    <li>魚11</li>
-    <li>魚12</li>
-    <li>魚13</li>
+    <li><a href="#">全部商品</a></li>
+    <li><a href="#">魚1</a></li>
+    <li><a href="#">魚2</a></li>
+    <li><a href="#">魚3</a></li>
+    <li><a href="#">魚4</a></li>
+    <li><a href="#">魚5</a></li>
+     <h3>商品分類2</h3>
+    <li><a href="#">魚6</a></li>
+    <li><a href="#">魚7</a></li>
+    <li><a href="#">魚8</a></li>
+    <li><a href="#">魚9</a></li>
+    <li><a href="#">魚10</a></li>
   </ul>
 </div>
 
