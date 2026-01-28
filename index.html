@@ -11,7 +11,7 @@
   /* Header */
   .main-header {
     background:#fff;
-    padding:10px 60px;
+    padding:10px 20px;
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -21,8 +21,12 @@
     top:0;
     z-index:999;
   }
-  .header-left { display:flex; align-items:center; gap:15px; position:relative; }
-  .header-left button {
+  .header-left { display:flex; align-items:center; gap:15px; }
+  .header-right { display:flex; align-items:center; gap:20px; }
+
+  /* 下拉容器 */
+  .dropdown { position: relative; }
+  .drop-btn {
     background:none;
     border:none;
     cursor:pointer;
@@ -32,42 +36,40 @@
     font-size:16px;
     font-weight:bold;
   }
-  .header-right { display:flex; align-items:center; gap:20px; }
-  .icon-btn img { width:28px; height:28px; vertical-align:middle; }
 
-  /* Header 下拉選單 */
-  .header-menu {
+  /* 下拉選單 */
+  .drop-menu {
     position: absolute;
-    top: 45px;
-    left: 0;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    width: 240px;
-    display: none; /* 初始隱藏 */
-    z-index: 1000;
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(-10px);
+    top:40px;
+    left:0;
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.2);
+    width:200px;
+    display:none;
+    opacity:0;
+    transform:translateY(-10px);
     transition: all 0.3s ease;
+    z-index:1000;
+    overflow:hidden;
   }
-  .header-menu.show {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
+  .drop-menu.show {
+    display:block;
+    opacity:1;
+    transform:translateY(0);
   }
-  .header-menu ul { list-style: none; margin:0; padding:10px 0; }
-  .header-menu ul li a {
-    display: block;
-    padding: 8px 15px;
-    color: #333;
-    text-decoration: none;
+  .drop-menu ul { list-style:none; margin:0; padding:10px 0; }
+  .drop-menu ul li a {
+    display:block;
+    padding:8px 15px;
+    color:#333;
+    text-decoration:none;
     transition: background 0.2s, color 0.2s;
   }
-  .header-menu ul li a:hover {
-    background: #00c300;
-    color: #fff;
+  .drop-menu ul li a:hover {
+    background:#00c300;
+    color:#fff;
   }
 
   /* Hero 輪播圖 */
@@ -101,6 +103,12 @@
 
   /* 浮動按鈕 */
   .floating-btn { position:fixed; right:20px; bottom:20px; background:#00c300; color:#fff; padding:12px 18px; border-radius:50px; font-weight:bold; cursor:pointer; box-shadow:0 2px 5px rgba(0,0,0,0.2); }
+
+  /* 手機版自適應 */
+  @media(max-width:768px){
+    .main-header { flex-wrap:wrap; padding:10px; }
+    .header-left { flex-wrap:wrap; gap:10px; }
+  }
 </style>
 </head>
 <body>
@@ -108,65 +116,53 @@
 <!-- Header -->
 <div class="main-header">
   <div class="header-left">
-    <button id="menuBtn">
-      <img src="https://files.catbox.moe/xf1m7y.png" alt="icon" width="24" height="24">
-      全部商品
-    </button>
-    <!-- 下拉選單 -->
-    <div class="header-menu" id="headerMenu">
-      <ul>
-        <li><a href="#">魚1</a></li>
-        <li><a href="#">魚2</a></li>
-        <li><a href="#">魚3</a></li>
-        <li><a href="#">魚4</a></li>
-        <li><a href="#">魚5</a></li>
-        <li><a href="#">魚6</a></li>
-        <li><a href="#">魚7</a></li>
-        <li><a href="#">魚8</a></li>
-        <li><a href="#">魚9</a></li>
-        <li><a href="#">魚10</a></li>
-        <li><a href="#">魚11</a></li>
-        <li><a href="#">魚12</a></li>
-        <li><a href="#">魚13</a></li>
-      </ul>
+    <!-- 全部商品 -->
+    <div class="dropdown">
+      <button class="drop-btn">
+        <img src="https://files.catbox.moe/s21b00.png" alt="icon" width="24" height="24">
+        全部商品
+      </button>
+      <div class="drop-menu">
+        <ul>
+          <li><a href="#">魚1</a></li>
+          <li><a href="#">魚2</a></li>
+          <li><a href="#">魚3</a></li>
+          <li><a href="#">魚4</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 熱門商品 -->
+    <div class="dropdown">
+      <button class="drop-btn">
+        <img src="https://files.catbox.moe/4mscbu.png" alt="icon" width="24" height="24">
+        熱門商品
+      </button>
+      <div class="drop-menu">
+        <ul>
+          <li><a href="#">熱門1</a></li>
+          <li><a href="#">熱門2</a></li>
+          <li><a href="#">熱門3</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 新品上架 -->
+    <div class="dropdown">
+      <button class="drop-btn">
+        <img src="https://files.catbox.moe/x94k3b.png" alt="icon" width="24" height="24">
+        新品上架
+      </button>
+      <div class="drop-menu">
+        <ul>
+          <li><a href="#">新品1</a></li>
+          <li><a href="#">新品2</a></li>
+          <li><a href="#">新品3</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 
-  <div class="header-left">
-  <!-- 全部商品 -->
-  <div class="dropdown">
-    <button class="drop-btn">
-      <img src="https://files.catbox.moe/s21b00.png" alt="icon" width="24" height="24">
-      全部商品
-    </button>
-    <div class="drop-menu">
-      <ul>
-        <li><a href="#">魚1</a></li>
-        <li><a href="#">魚2</a></li>
-        <li><a href="#">魚3</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- 新增範例：熱門商品 -->
-  <div class="dropdown">
-    <button class="drop-btn">
-      <img src="https://files.catbox.moe/4mscbu.png" alt="icon" width="24" height="24">
-      熱門商品
-    </button>
-    <div class="drop-menu">
-      <ul>
-        <li><a href="#">熱門1</a></li>
-        <li><a href="#">熱門2</a></li>
-        <li><a href="#">熱門3</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- 再新增更多按鈕也可以 -->
-</div>
-
-  
   <div class="header-right">
     <a href="#" class="icon-btn"><img src="https://files.catbox.moe/s21b00.png" alt="會員登入"></a>
     <a href="#" class="icon-btn"><img src="https://files.catbox.moe/4mscbu.png" alt="購物車"></a>
@@ -247,21 +243,26 @@
     heroImages[current].classList.add('active');
   }, 5000);
 
-  // Header 下拉選單
-  const menuBtn = document.getElementById('menuBtn');
-  const headerMenu = document.getElementById('headerMenu');
-
-  menuBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    headerMenu.classList.toggle('show');
+  // Header 多下拉選單
+  const dropdowns = document.querySelectorAll('.dropdown');
+  dropdowns.forEach(drop => {
+    const btn = drop.querySelector('.drop-btn');
+    const menu = drop.querySelector('.drop-menu');
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menu.classList.toggle('show');
+    });
   });
 
-  // 點空白區收起
+  // 點空白區收起所有下拉
   document.addEventListener('click', () => {
-    headerMenu.classList.remove('show');
+    document.querySelectorAll('.drop-menu').forEach(menu => menu.classList.remove('show'));
   });
 
-  headerMenu.addEventListener('click', (e) => e.stopPropagation());
+  // 點下拉內部不收
+  document.querySelectorAll('.drop-menu').forEach(menu => {
+    menu.addEventListener('click', e => e.stopPropagation());
+  });
 </script>
 
 </body>
