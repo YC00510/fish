@@ -8,67 +8,6 @@
   body { margin:0; font-family: sans-serif; background:#f6f5f3; }
   a { text-decoration:none; color:inherit; }
 
-  /* 漢堡三槓 */
-  .hamburger {
-    font-size:30px;
-    cursor:pointer;
-    position:fixed;
-    left:20px;
-    top:15px;
-    z-index: 1003;
-  }
-
-  /* 左側滑出選單 */
-  .side-menu {
-    height: 100%;
-    width: 280px; 
-    position: fixed;
-    top: 0;
-    left: -280px; /* 初始隱藏 */
-    background: #fff;
-    overflow-x: hidden;
-    transition: left 0.3s ease;
-    padding: 60px 20px;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
-    z-index: 1002;
-  }
-  .side-menu.active {
-    left: 0;
-  }
-
-  
-
-  /* 關閉按鈕 */
-  .side-menu .close-btn {
-    font-size:30px;
-    cursor:pointer;
-    position:absolute;
-    top:15px;
-    right:20px;
-    z-index: 1002;
-    display: none;
-  }
-  .side-menu.active .close-btn {
-    display: block;
-  }
-
-  /* 遮罩 */
-  .overlay {
-    position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background: rgba(0,0,0,0);
-    transition: background 0.3s ease;
-    pointer-events: none; 
-    z-index: 1001;
-  }
-  .overlay.active {
-    background: rgba(0,0,0,0.3);
-    pointer-events: auto;
-  }
-
   /* Header */
   .main-header {
     background:#fff;
@@ -82,8 +21,54 @@
     top:0;
     z-index:999;
   }
-  .header-left { display:flex; align-items:center; gap:15px; }
+  .header-left { display:flex; align-items:center; gap:15px; position:relative; }
+  .header-left button {
+    background:none;
+    border:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:5px;
+    font-size:16px;
+    font-weight:bold;
+  }
+  .header-right { display:flex; align-items:center; gap:20px; }
   .icon-btn img { width:28px; height:28px; vertical-align:middle; }
+
+  /* Header 下拉選單 */
+  .header-menu {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    width: 240px;
+    display: none; /* 初始隱藏 */
+    z-index: 1000;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+  }
+  .header-menu.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .header-menu ul { list-style: none; margin:0; padding:10px 0; }
+  .header-menu ul li a {
+    display: block;
+    padding: 8px 15px;
+    color: #333;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .header-menu ul li a:hover {
+    background: #00c300;
+    color: #fff;
+  }
 
   /* Hero 輪播圖 */
   .hero { position:relative; width:100%; max-height:500px; overflow:hidden; margin-top:10px; }
@@ -98,14 +83,18 @@
   .product-card p { margin:0; color:#333; font-weight:bold; }
 
   /* Footer */
-  footer { background:#333; color:#fff; padding:20px; display:flex; flex-wrap:wrap; gap:20px; justify-content:space-between; }
-  footer div { min-width:150px; }
-  text-align: right; 
+  footer {
+    background:#333;
+    color:#fff;
+    padding:20px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+    justify-content:space-between;
+  }
+  footer div { min-width:150px; text-align:right; }
+  footer h4 { margin-bottom:5px; }
   footer a { color:#fff; display:block; margin:3px 0; }
-  /* Footer 標題和連結間距縮短 */
-footer h4 {
-  margin-bottom: 5px; /* 原本可能太大，縮短一點 */
-}
 
   /* 社群 icon */
   .social-icons img { width:24px; height:24px; margin-right:8px; }
@@ -116,36 +105,31 @@ footer h4 {
 </head>
 <body>
 
-<!-- 遮罩 -->
-<div class="overlay" id="overlay"></div>
-
-<!-- 漢堡三槓 -->
-<div class="hamburger" id="hamburger">&#9776;</div>
-
-<!-- 左側滑出選單 -->
-<div class="side-menu" id="sideMenu">
-  <div class="close-btn" id="closeBtn">&times;</div>
-  <h3>商品分類</h3>
-  <ul>
-    <li><a href="#">全部商品</a></li>
-    <li><a href="#">魚1</a></li>
-    <li><a href="#">魚2</a></li>
-    <li><a href="#">魚3</a></li>
-    <li><a href="#">魚4</a></li>
-    <li><a href="#">魚5</a></li>
-     <h3>商品分類2</h3>
-    <li><a href="#">魚6</a></li>
-    <li><a href="#">魚7</a></li>
-    <li><a href="#">魚8</a></li>
-    <li><a href="#">魚9</a></li>
-    <li><a href="#">魚10</a></li>
-  </ul>
-</div>
-
 <!-- Header -->
 <div class="main-header">
   <div class="header-left">
-    <span style="font-weight:bold; cursor:pointer;">全部商品</span>
+    <button id="menuBtn">
+      <img src="https://files.catbox.moe/s21b00.png" alt="icon" width="24" height="24">
+      全部商品
+    </button>
+    <!-- 下拉選單 -->
+    <div class="header-menu" id="headerMenu">
+      <ul>
+        <li><a href="#">魚1</a></li>
+        <li><a href="#">魚2</a></li>
+        <li><a href="#">魚3</a></li>
+        <li><a href="#">魚4</a></li>
+        <li><a href="#">魚5</a></li>
+        <li><a href="#">魚6</a></li>
+        <li><a href="#">魚7</a></li>
+        <li><a href="#">魚8</a></li>
+        <li><a href="#">魚9</a></li>
+        <li><a href="#">魚10</a></li>
+        <li><a href="#">魚11</a></li>
+        <li><a href="#">魚12</a></li>
+        <li><a href="#">魚13</a></li>
+      </ul>
+    </div>
   </div>
   <div class="header-right">
     <a href="#" class="icon-btn"><img src="https://files.catbox.moe/s21b00.png" alt="會員登入"></a>
@@ -227,23 +211,21 @@ footer h4 {
     heroImages[current].classList.add('active');
   }, 5000);
 
-  const hamburger = document.getElementById('hamburger');
-  const sideMenu = document.getElementById('sideMenu');
-  const closeBtn = document.getElementById('closeBtn');
-  const overlay = document.getElementById('overlay');
+  // Header 下拉選單
+  const menuBtn = document.getElementById('menuBtn');
+  const headerMenu = document.getElementById('headerMenu');
 
-  hamburger.addEventListener('click', () => {
-    sideMenu.classList.add('active');
-    overlay.classList.add('active');
+  menuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    headerMenu.classList.toggle('show');
   });
 
-  function closeMenu() {
-    sideMenu.classList.remove('active');
-    overlay.classList.remove('active');
-  }
+  // 點空白區收起
+  document.addEventListener('click', () => {
+    headerMenu.classList.remove('show');
+  });
 
-  closeBtn.addEventListener('click', closeMenu);
-  overlay.addEventListener('click', closeMenu);
+  headerMenu.addEventListener('click', (e) => e.stopPropagation());
 </script>
 
 </body>
