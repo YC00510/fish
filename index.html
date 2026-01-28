@@ -42,7 +42,6 @@
     height:28px;
     object-fit:contain;
   }
-  /* 小箭頭 */
   .drop-btn::after {
     content: '▼';
     font-size:12px;
@@ -53,7 +52,6 @@
     transform: rotate(180deg);
   }
 
-  /* 下拉選單 */
   .drop-menu {
     position: absolute;
     top:40px;
@@ -114,26 +112,30 @@
   footer h4 { margin-bottom:5px; }
   footer a { color:#fff; display:block; margin:3px 0; }
 
-  /* 社群 icon */
-  .social-icons img { width:24px; height:24px; margin-right:8px; }
-  .social-icons {
-  text-align: left; /* 保持左對齊 */
-}
-
-.social-icons a {
-  display: inline-block; /* 讓 a 可以橫向排列 */
-  margin-right: 10px;    /* icon 之間的間距 */
-}
-
-.social-icons h4 {
-  margin-bottom: 5px;    /* 標題和 icon 的間距 */
-}
-
+  /* 社群 icon 橫排 */
+  .social-icons { text-align:left; }
+  .social-icons a { display:inline-block; margin-right:10px; }
+  .social-icons h4 { margin-bottom:5px; }
 
   /* 浮動按鈕 */
-  .floating-btn { position:fixed; right:20px; bottom:20px; background:#00c300; color:#fff; padding:12px 18px; border-radius:50px; font-weight:bold; cursor:pointer; box-shadow:0 2px 5px rgba(0,0,0,0.2); }
+  .floating-btn {
+    position:fixed;
+    right:20px;
+    bottom:60px; /* 往上移 */
+    background:#00c300;
+    color:#fff;
+    padding:12px 20px;
+    border-radius:25px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 4px 8px rgba(0,0,0,0.3);
+    transition: background 0.3s, transform 0.2s;
+  }
+  .floating-btn:hover {
+    background:#009900;
+    transform: translateY(-2px);
+  }
 
-  /* 手機版自適應 */
   @media(max-width:768px){
     .main-header { flex-wrap:wrap; padding:10px; }
     .header-left { flex-wrap:wrap; gap:10px; }
@@ -172,21 +174,6 @@
           <li><a href="#">熱門1</a></li>
           <li><a href="#">熱門2</a></li>
           <li><a href="#">熱門3</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 新品上架 -->
-    <div class="dropdown">
-      <button class="drop-btn">
-        <img src="https://files.catbox.moe/xf1m7y.png" alt="icon">
-        新品上架
-      </button>
-      <div class="drop-menu">
-        <ul>
-          <li><a href="#">新品1</a></li>
-          <li><a href="#">新品2</a></li>
-          <li><a href="#">新品3</a></li>
         </ul>
       </div>
     </div>
@@ -272,25 +259,38 @@
     heroImages[current].classList.add('active');
   }, 5000);
 
-  // Header 多下拉選單
+  // Header 多下拉選單：同時只開一個
   const dropdowns = document.querySelectorAll('.dropdown');
   dropdowns.forEach(drop => {
     const btn = drop.querySelector('.drop-btn');
     const menu = drop.querySelector('.drop-menu');
+
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
+
+      // 關閉其他下拉
+      dropdowns.forEach(d => {
+        if(d !== drop) {
+          d.querySelector('.drop-menu').classList.remove('show');
+          d.querySelector('.drop-btn').classList.remove('active');
+        }
+      });
+
+      // 切換自己
       menu.classList.toggle('show');
-      btn.classList.toggle('active'); // 箭頭旋轉
+      btn.classList.toggle('active');
     });
   });
 
-  // 點空白區收起所有下拉
+  // 點空白收起所有下拉
   document.addEventListener('click', () => {
-    document.querySelectorAll('.drop-menu').forEach(menu => menu.classList.remove('show'));
-    document.querySelectorAll('.drop-btn').forEach(btn => btn.classList.remove('active'));
+    dropdowns.forEach(d => {
+      d.querySelector('.drop-menu').classList.remove('show');
+      d.querySelector('.drop-btn').classList.remove('active');
+    });
   });
 
-  // 點下拉內部不收
+  // 點下拉內容不收起
   document.querySelectorAll('.drop-menu').forEach(menu => {
     menu.addEventListener('click', e => e.stopPropagation());
   });
