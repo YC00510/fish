@@ -29,7 +29,9 @@ a { text-decoration:none; color:inherit; }
   flex-wrap: wrap;
 }
 .header-left, .header-center, .header-right { display:flex; align-items:center; gap:15px; }
-.header-center { flex:1; justify-content:center; margin:5px 0; }
+ justify-content:flex-start; /* 靠左排列，靠近 header-left */
+  margin-left:20px;         /* 調整間距 */
+}
 .home-btn img { width:36px; height:36px; cursor:pointer; }
 
 /* Dropdown */
@@ -160,8 +162,8 @@ footer a { color:#fff; display:block; margin:3px 0; }
 
 <!-- Hero 輪播圖 -->
 <div class="hero">
-  <img src="https://files.catbox.moe/q33ry7.png" alt="關於我們" class="active">
-  <img src="https://files.catbox.moe/wze5xe.png" alt="出貨">
+  <img src="https://files.catbox.moe/ztobdh.png" alt="關於我們" class="active">
+  <img src="https://files.catbox.moe/3mvktb.png" alt="出貨">
   <div class="arrow left">&#10094;</div>
   <div class="arrow right">&#10095;</div>
 </div>
