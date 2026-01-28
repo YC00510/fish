@@ -26,11 +26,28 @@
     transition: 0.3s;
     padding: 60px 20px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.2);
-    z-index: 1000;
+    z-index: 1002; /* 高於 overlay */
   }
 
   .side-menu .close-btn {
     font-size:30px; cursor:pointer; position:absolute; top:15px; right:20px;
+  }
+
+  /* 遮罩 */
+  .overlay {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0);
+    transition: 0.3s;
+    pointer-events: none; /* 初始點不到 */
+    z-index: 1001; /* 在 side-menu 下 */
+  }
+  .overlay.active {
+    background: rgba(0,0,0,0.3);
+    pointer-events: auto; /* 可點擊關閉 */
   }
 
   /* Header */
@@ -72,6 +89,9 @@
 </style>
 </head>
 <body>
+
+<!-- 遮罩 -->
+<div class="overlay" id="overlay"></div>
 
 <!-- 漢堡按鈕 -->
 <div class="hamburger" id="hamburger">&#9776;</div>
@@ -186,21 +206,20 @@
   const hamburger = document.getElementById('hamburger');
   const sideMenu = document.getElementById('sideMenu');
   const closeBtn = document.getElementById('closeBtn');
+  const overlay = document.getElementById('overlay');
 
   hamburger.addEventListener('click', () => {
-    sideMenu.style.left = '0'; // 滑出
+    sideMenu.style.left = '0';
+    overlay.classList.add('active');
   });
 
-  closeBtn.addEventListener('click', () => {
-    sideMenu.style.left = '-250px'; // 滑回
-  });
+  closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
 
-  // 點擊空白處也收回
-  window.addEventListener('click', (e) => {
-    if(!sideMenu.contains(e.target) && !hamburger.contains(e.target)){
-      sideMenu.style.left = '-250px';
-    }
-  });
+  function closeMenu() {
+    sideMenu.style.left = '-250px';
+    overlay.classList.remove('active');
+  }
 </script>
 
 </body>
