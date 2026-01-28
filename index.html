@@ -4,311 +4,233 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>fish</title>
+
 <style>
-  body { margin:0; font-family: sans-serif; background:#f6f5f3; }
-  a { text-decoration:none; color:inherit; }
+body { margin:0; font-family:sans-serif; background:#f6f5f3; }
+a { text-decoration:none; color:inherit; }
 
-  /* Header */
-  .main-header {
-    background:#fff;
-    padding:10px 20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:20px;
-    box-shadow:0 2px 5px rgba(0,0,0,0.1);
-    position:sticky;
-    top:0;
-    z-index:999;
-  }
-  .header-left { display:flex; align-items:center; gap:15px; }
-  .header-right { display:flex; align-items:center; gap:15px; }
+/* Header */
+.main-header{
+  background:#fff;
+  padding:10px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  box-shadow:0 2px 5px rgba(0,0,0,0.1);
+  position:sticky;
+  top:0;
+  z-index:999;
+}
+.header-left,.header-right{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
 
-  /* 回首頁圖示 */
-  .home-btn img {
-    width:36px;
-    height:36px;
-    cursor:pointer;
-  }
+/* Home */
+.home-btn img{ width:36px; height:36px; }
 
-  /* 下拉容器 */
-  .dropdown { position: relative; }
-  .drop-btn {
-    background:none;
-    border:none;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    gap:5px;
-    font-size:16px;
-    font-weight:bold;
-  }
-  .drop-btn img {
-    width:28px;
-    height:28px;
-    object-fit:contain;
-  }
-  .drop-btn::after {
-    content: '▼';
-    font-size:12px;
-    margin-left:5px;
-    transition: transform 0.3s;
-  }
-  .drop-btn.active::after {
-    transform: rotate(180deg);
-  }
-  .drop-menu {
-    position: absolute;
-    top:40px;
-    left:0;
-    background:#fff;
-    border:1px solid #ddd;
-    border-radius:8px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.2);
-    width:200px;
-    display:none;
-    opacity:0;
-    transform:translateY(-10px);
-    transition: all 0.3s ease;
-    z-index:1000;
-    overflow:hidden;
-  }
-  .drop-menu.show {
-    display:block;
-    opacity:1;
-    transform:translateY(0);
-  }
-  .drop-menu ul { list-style:none; margin:0; padding:10px 0; }
-  .drop-menu ul li a {
-    display:block;
-    padding:8px 15px;
-    color:#333;
-  }
-  .drop-menu ul li a:hover { background:#00c300; color:#fff; }
+/* Dropdown */
+.dropdown{ position:relative; }
+.drop-btn{
+  background:none;
+  border:none;
+  cursor:pointer;
+  font-size:16px;
+  font-weight:bold;
+}
+.drop-btn::after{
+  content:'▼';
+  font-size:12px;
+  margin-left:5px;
+  transition:.3s;
+}
+.drop-btn.active::after{ transform:rotate(180deg); }
 
-  /* 搜尋框 */
-  .search-box {
-    display:flex;
-    align-items:center;
-    border:1px solid #ddd;
-    border-radius:25px;
-    overflow:hidden;
-    height:36px;
-  }
-  .search-box input {
-    border:none;
-    padding:0 10px;
-    outline:none;
-    height:100%;
-    font-size:14px;
-  }
-  .search-box button {
-    border:none;
-    background:#00c300;
-    cursor:pointer;
-    height:100%;
-    padding:0 10px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition: background 0.3s;
-  }
-  .search-box button:hover { background:#009900; }
-  .search-box img { width:20px; height:20px; }
+.drop-menu{
+  position:absolute;
+  top:40px;
+  left:0;
+  background:#fff;
+  border:1px solid #ddd;
+  border-radius:8px;
+  width:180px;
+  box-shadow:0 2px 8px rgba(0,0,0,.2);
+  display:none;
+}
+.drop-menu.show{ display:block; }
+.drop-menu a{
+  display:block;
+  padding:8px 15px;
+}
+.drop-menu a:hover{
+  background:#00c300;
+  color:#fff;
+}
 
-  /* Hero 輪播圖 */
-  .hero { position:relative; width:100%; max-height:500px; overflow:hidden; margin-top:10px; }
-  .hero img { width:100%; height:400px; object-fit:cover; display:none; }
-  .hero img.active { display:block; }
+/* Search */
+.search-box{
+  display:flex;
+  border:1px solid #ddd;
+  border-radius:25px;
+  overflow:hidden;
+  height:36px;
+}
+.search-box input{
+  border:none;
+  padding:0 10px;
+  outline:none;
+}
+.search-box button{
+  border:none;
+  background:#00c300;
+  padding:0 10px;
+  cursor:pointer;
+}
+.search-box img{ width:20px; }
 
-  /* 商品展示 */
-  .products { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; padding:20px; background:#fff; }
-  .product-card { width:200px; background:#fafafa; border-radius:10px; padding:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
-  .product-card img { width:100%; height:150px; object-fit:cover; border-radius:5px; }
-  .product-card h4 { margin:10px 0 5px; font-size:16px; }
-  .product-card p { margin:0; color:#333; font-weight:bold; }
+/* Hero */
+.hero img{ width:100%; height:400px; object-fit:cover; display:none; }
+.hero img.active{ display:block; }
 
-  /* Footer */
-  footer { background:#333; color:#fff; padding:20px; display:flex; flex-wrap:wrap; gap:20px; justify-content:space-between; }
-  footer div { min-width:150px; text-align:left; }
-  footer h4 { margin-bottom:5px; }
-  footer a { color:#fff; display:block; margin:3px 0; }
-  .social-icons { text-align:left; }
-  .social-icons a { display:inline-block; margin-right:10px; }
-    /* 社群 icon */
-  .social-icons a img { width:24px; height:24px; vertical-align:middle; }
-
-  /* 浮動按鈕 */
-  .floating-btn {
-    position:fixed;
-    right:20px;
-    bottom:150px;
-    background:#00c300;
-    color:#fff;
-    padding:12px 20px;
-    border-radius:25px;
-    font-weight:bold;
-    cursor:pointer;
-    box-shadow:0 4px 8px rgba(0,0,0,0.3);
-    transition: background 0.3s, transform 0.2s;
-  }
-  .floating-btn:hover { background:#009900; transform: translateY(-2px); }
+/* Products */
+.products{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  justify-content:center;
+  padding:20px;
+  background:#fff;
+}
+.product-card{
+  width:200px;
+  background:#fafafa;
+  border-radius:10px;
+  padding:10px;
+  text-align:center;
+  box-shadow:0 2px 5px rgba(0,0,0,.1);
+}
+.product-card img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+}
 </style>
 </head>
+
 <body>
 
 <!-- Header -->
 <div class="main-header">
   <div class="header-left">
-    <!-- 回首頁 -->
-    <a href="#" class="home-btn"><img src="https://files.catbox.moe/fwiva1.png" alt="首頁"></a>
+    <a href="#" class="home-btn">
+      <img src="https://files.catbox.moe/fwiva1.png">
+    </a>
 
-    <!-- 全部商品下拉 -->
     <div class="dropdown">
-      <button class="drop-btn">
-        <img src="https://files.catbox.moe/xf1m7y.png" alt="icon"> 全部商品
-        <img src="https://files.catbox.moe/xf1m7y.png" alt="icon"> 熱門商品
-        <img src="https://files.catbox.moe/xf1m7y.png" alt="icon"> 精選魚類
-      </button>
+      <button class="drop-btn">全部商品</button>
       <div class="drop-menu">
-        <ul>
-          <li><a href="product1.html">魚1</a></li>
-          <li><a href="product2.html">魚2</a></li>
-          <li><a href="product3.html">魚3</a></li>
-        </ul>
+        <a href="product1.html">魚1</a>
+        <a href="product2.html">魚2</a>
+        <a href="product3.html">魚3</a>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <button class="drop-btn">熱門商品</button>
+      <div class="drop-menu">
+        <a href="#">熱賣A</a>
+        <a href="#">熱賣B</a>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <button class="drop-btn">精選魚類</button>
+      <div class="drop-menu">
+        <a href="#">淡水魚</a>
+        <a href="#">海水魚</a>
       </div>
     </div>
   </div>
 
   <div class="header-right">
-    <a href="#" class="icon-btn"><img src="https://files.catbox.moe/s21b00.png" alt="會員登入" width="28" height="28"></a>
-    <a href="#" class="icon-btn"><img src="https://files.catbox.moe/4mscbu.png" alt="購物車" width="28" height="28"></a>
+    <img src="https://files.catbox.moe/s21b00.png" width="28">
+    <img src="https://files.catbox.moe/4mscbu.png" width="28">
+
+    <div class="search-box">
+      <input id="searchInput" placeholder="搜尋商品">
+      <button id="searchBtn">
+        <img src="https://files.catbox.moe/br4tv3.png">
+      </button>
+    </div>
+
     <a href="#">關於我們</a>
     <a href="#">最新消息</a>
-
-    <!-- 搜尋框 -->
-    <div class="search-box">
-      <input type="text" placeholder="搜尋商品..." id="searchInput">
-      <button id="searchBtn"><img src="https://files.catbox.moe/br4tv3.png" alt="搜尋"></button>
-    </div>
   </div>
 </div>
 
-<!-- Hero 輪播圖 -->
+<!-- Hero -->
 <div class="hero">
-  <img src="https://picsum.photos/1200/400?random=1" class="active" alt="活動1">
-  <img src="https://picsum.photos/1200/400?random=2" alt="活動2">
-  <img src="https://picsum.photos/1200/400?random=3" alt="活動3">
+  <img src="https://picsum.photos/1200/400?1" class="active">
+  <img src="https://picsum.photos/1200/400?2">
 </div>
 
-<!-- 商品展示 -->
+<!-- Products -->
 <div class="products">
   <div class="product-card">
-    <a href="product1.html"><img src="https://picsum.photos/200/150?random=11" alt="商品1"></a>
+    <img src="https://picsum.photos/200/150?11">
     <h4>魚1</h4>
     <p>$100</p>
   </div>
   <div class="product-card">
-    <a href="product2.html"><img src="https://picsum.photos/200/150?random=12" alt="商品2"></a>
+    <img src="https://picsum.photos/200/150?12">
     <h4>魚2</h4>
     <p>$120</p>
   </div>
-  <div class="product-card">
-    <a href="product3.html"><img src="https://picsum.photos/200/150?random=13" alt="商品3"></a>
-    <h4>魚3</h4>
-    <p>$150</p>
-  </div>
 </div>
 
-<!-- Footer -->
-<footer>
-  <div>
-    <h4>服務條款</h4>
-    <a href="#">條款內容</a>
-  </div>
-  <div>
-    <h4>客戶留言板</h4>
-    <a href="#">留言內容</a>
-  </div>
-  <div>
-    <h4>最新消息</h4>
-    <a href="#">活動1</a>
-    <a href="#">活動2</a>
-  </div>
-  <div>
-    <h4>全部商品</h4>
-    <a href="product1.html">魚1</a>
-    <a href="product2.html">魚2</a>
-  </div>
-  <div>
-    <h4>會員服務</h4>
-    <a href="#">會員中心</a>
-    <a href="#">訂購紀錄</a>
-  </div>
-  <div class="social-icons">
-    <h4>社群連結</h4>
-    <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="FB"></a>
-    <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="IG"></a>
-    <a href="#"><img src="https://files.catbox.moe/x94k3b.png" alt="地圖"></a>
-  </div>
-</footer>
-
-<!-- 浮動聯絡按鈕 -->
-<a href="#" class="floating-btn">聯絡我們</a>
-
 <script>
-  // Hero 輪播圖
-  const heroImages = document.querySelectorAll('.hero img');
-  let current = 0;
-  setInterval(() => {
-    heroImages[current].classList.remove('active');
-    current = (current + 1) % heroImages.length;
-    heroImages[current].classList.add('active');
-  }, 5000);
-
-  // 下拉選單
-  const dropdowns = document.querySelectorAll('.dropdown');
-  dropdowns.forEach(drop => {
-    const btn = drop.querySelector('.drop-btn');
-    const menu = drop.querySelector('.drop-menu');
-
-    btn.addEventListener('click', e => {
-      e.stopPropagation();
-      dropdowns.forEach(d => {
-        if(d !== drop){
-          d.querySelector('.drop-menu').classList.remove('show');
-          d.querySelector('.drop-btn').classList.remove('active');
-        }
-      });
-      menu.classList.toggle('show');
-      btn.classList.toggle('active');
+/* Dropdown */
+const dropdowns=document.querySelectorAll('.dropdown');
+dropdowns.forEach(d=>{
+  const btn=d.querySelector('.drop-btn');
+  const menu=d.querySelector('.drop-menu');
+  btn.onclick=e=>{
+    e.stopPropagation();
+    dropdowns.forEach(x=>{
+      if(x!==d){
+        x.querySelector('.drop-menu').classList.remove('show');
+        x.querySelector('.drop-btn').classList.remove('active');
+      }
     });
-  });
-  document.addEventListener('click', () => {
-    dropdowns.forEach(d => {
-      d.querySelector('.drop-menu').classList.remove('show');
-      d.querySelector('.drop-btn').classList.remove('active');
-    });
-  });
-  document.querySelectorAll('.drop-menu').forEach(menu => {
-    menu.addEventListener('click', e => e.stopPropagation());
-  });
-
-  // 商品搜尋（同一頁過濾 + 清空恢復）
-  const products = document.querySelectorAll('.product-card');
-  const searchInput = document.getElementById('searchInput');
-  const searchBtn = document.getElementById('searchBtn');
-
-  function filterProducts() {
-    const keyword = searchInput.value.trim().toLowerCase();
-    products.forEach(card => {
-      const title = card.querySelector('h4').textContent.toLowerCase();
-      card.style.display = keyword === '' || title.includes(keyword) ? 'block' : 'none';
-    });
+    btn.classList.toggle('active');
+    menu.classList.toggle('show');
   }
+});
+document.onclick=()=>dropdowns.forEach(d=>{
+  d.querySelector('.drop-menu').classList.remove('show');
+  d.querySelector('.drop-btn').classList.remove('active');
+});
 
-  searchBtn.addEventListener('click', filterProducts);
-  searchInput.addEventListener('keyup', filterProducts); // 即時搜尋
+/* Hero */
+let i=0;
+const imgs=document.querySelectorAll('.hero img');
+setInterval(()=>{
+  imgs[i].classList.remove('active');
+  i=(i+1)%imgs.length;
+  imgs[i].classList.add('active');
+},5000);
+
+/* Search */
+const cards=document.querySelectorAll('.product-card');
+searchBtn.onclick=()=>{
+  const k=searchInput.value.toLowerCase();
+  cards.forEach(c=>{
+    c.style.display=c.innerText.toLowerCase().includes(k)?'block':'none';
+  });
+};
 </script>
+
 </body>
 </html>
