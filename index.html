@@ -120,10 +120,24 @@
   /* Hero 輪播圖 */
 .hero {
   width: 100%;
-  aspect-ratio: 16/9;   /* 保持比例 */
-  max-height: 200px;    /* 最大高度限制，改成你想要的 */
+  aspect-ratio: 16/9;
+  max-height: 300px; /* 手機預設高度 */
   overflow: hidden;
   position: relative;
+}
+
+/* 電腦螢幕 */
+@media (min-width: 768px) {
+  .hero {
+    max-height: 500px; /* 電腦看比較大 */
+  }
+}
+
+/* 更大螢幕可以再加一個 */
+@media (min-width: 1200px) {
+  .hero {
+    max-height: 600px;
+  }
 }
 
 .hero img {
@@ -139,7 +153,6 @@
 .hero img.active {
   display: block;
 }
-
 
 
 
