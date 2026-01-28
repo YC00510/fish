@@ -129,16 +129,11 @@
 /* 電腦螢幕 */
 @media (min-width: 768px) {
   .hero {
-    max-height: 500px; /* 電腦看比較大 */
+    max-height: 300px; /* 電腦看比較大 */
   }
 }
 
-/* 更大螢幕可以再加一個 */
-@media (min-width: 1200px) {
-  .hero {
-    max-height: 600px;
-  }
-}
+
 
 .hero img {
   width: 100%;
@@ -154,6 +149,45 @@
   display: block;
 }
 
+  /* 箭頭按鈕 */
+.hero .arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+  color: white;
+  background: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.3s;
+}
+
+.hero .arrow:hover {
+  background: rgba(0,0,0,0.6);
+}
+
+.hero .arrow.left {
+  left: 10px;
+}
+
+.hero .arrow.right {
+  right: 10px;
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+  .hero .arrow {
+    font-size: 24px;
+    width: 32px;
+    height: 32px;
+  }
+}
 
 
   /* 商品展示 */
@@ -268,7 +302,11 @@
 <div class="hero">
   <img src="https://files.catbox.moe/gazxu2.jpg" class="active" alt="關於我們">
   <img src="https://files.catbox.moe/zbun2i.jpg" alt="出貨">
-  
+
+   <!-- 箭頭 -->
+  <div class="arrow left">&#10094;</div>
+  <div class="arrow right">&#10095;</div>
+
 </div>
 
 <!-- 商品展示 -->
@@ -335,13 +373,39 @@
 
 <script>
   // Hero 輪播圖
-  const heroImages = document.querySelectorAll('.hero img');
-  let current = 0;
-  setInterval(() => {
-    heroImages[current].classList.remove('active');
-    current = (current + 1) % heroImages.length;
-    heroImages[current].classList.add('active');
-  }, 5000);
+ const heroImages = document.querySelectorAll('.hero img');
+let current = 0;
+
+function showHero(index) {
+  heroImages.forEach((img, i) => img.classList.toggle('active', i === index));
+}
+
+function nextHero() {
+  current = (current + 1) % heroImages.length;
+  showHero(current);
+}
+
+function prevHero() {
+  current = (current - 1 + heroImages.length) % heroImages.length;
+  showHero(current);
+}
+
+// 自動輪播
+let interval = setInterval(nextHero, 5000);
+
+// 箭頭控制
+document.querySelector('.hero .arrow.right').addEventListener('click', () => {
+  nextHero();
+  clearInterval(interval); // 點擊箭頭後重置自動輪播
+  interval = setInterval(nextHero, 5000);
+});
+
+document.querySelector('.hero .arrow.left').addEventListener('click', () => {
+  prevHero();
+  clearInterval(interval);
+  interval = setInterval(nextHero, 5000);
+});
+
 
   // 下拉選單
   const dropdowns = document.querySelectorAll('.dropdown');
