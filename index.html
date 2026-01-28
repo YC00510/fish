@@ -35,11 +35,22 @@
     gap:5px;
     font-size:16px;
     font-weight:bold;
+    position:relative;
   }
   .drop-btn img {
     width:28px;
     height:28px;
     object-fit:contain;
+  }
+  /* 小箭頭 */
+  .drop-btn::after {
+    content: '▼';
+    font-size:12px;
+    margin-left:5px;
+    transition: transform 0.3s;
+  }
+  .drop-btn.active::after {
+    transform: rotate(180deg);
   }
 
   /* 下拉選單 */
@@ -99,12 +110,25 @@
     gap:20px;
     justify-content:space-between;
   }
-  footer div { min-width:150px; text-align:left; } /* ← 改左對齊 */
+  footer div { min-width:150px; text-align:left; }
   footer h4 { margin-bottom:5px; }
   footer a { color:#fff; display:block; margin:3px 0; }
 
   /* 社群 icon */
   .social-icons img { width:24px; height:24px; margin-right:8px; }
+  .social-icons {
+  text-align: left; /* 保持左對齊 */
+}
+
+.social-icons a {
+  display: inline-block; /* 讓 a 可以橫向排列 */
+  margin-right: 10px;    /* icon 之間的間距 */
+}
+
+.social-icons h4 {
+  margin-bottom: 5px;    /* 標題和 icon 的間距 */
+}
+
 
   /* 浮動按鈕 */
   .floating-btn { position:fixed; right:20px; bottom:20px; background:#00c300; color:#fff; padding:12px 18px; border-radius:50px; font-weight:bold; cursor:pointer; box-shadow:0 2px 5px rgba(0,0,0,0.2); }
@@ -256,12 +280,14 @@
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       menu.classList.toggle('show');
+      btn.classList.toggle('active'); // 箭頭旋轉
     });
   });
 
   // 點空白區收起所有下拉
   document.addEventListener('click', () => {
     document.querySelectorAll('.drop-menu').forEach(menu => menu.classList.remove('show'));
+    document.querySelectorAll('.drop-btn').forEach(btn => btn.classList.remove('active'));
   });
 
   // 點下拉內部不收
