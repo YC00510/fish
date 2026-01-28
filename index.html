@@ -92,7 +92,7 @@
     gap:20px;
     justify-content:space-between;
   }
-  footer div { min-width:150px; text-align:right; }
+  footer div { min-width:150px; text-align:left; }
   footer h4 { margin-bottom:5px; }
   footer a { color:#fff; display:block; margin:3px 0; }
 
@@ -109,7 +109,7 @@
 <div class="main-header">
   <div class="header-left">
     <button id="menuBtn">
-      <img src="https://files.catbox.moe/s21b00.png" alt="icon" width="24" height="24">
+      <img src="https://files.catbox.moe/xf1m7y.png" alt="icon" width="24" height="24">
       全部商品
     </button>
     <!-- 下拉選單 -->
@@ -131,6 +131,42 @@
       </ul>
     </div>
   </div>
+
+  <div class="header-left">
+  <!-- 全部商品 -->
+  <div class="dropdown">
+    <button class="drop-btn">
+      <img src="https://files.catbox.moe/s21b00.png" alt="icon" width="24" height="24">
+      全部商品
+    </button>
+    <div class="drop-menu">
+      <ul>
+        <li><a href="#">魚1</a></li>
+        <li><a href="#">魚2</a></li>
+        <li><a href="#">魚3</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 新增範例：熱門商品 -->
+  <div class="dropdown">
+    <button class="drop-btn">
+      <img src="https://files.catbox.moe/4mscbu.png" alt="icon" width="24" height="24">
+      熱門商品
+    </button>
+    <div class="drop-menu">
+      <ul>
+        <li><a href="#">熱門1</a></li>
+        <li><a href="#">熱門2</a></li>
+        <li><a href="#">熱門3</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 再新增更多按鈕也可以 -->
+</div>
+
+  
   <div class="header-right">
     <a href="#" class="icon-btn"><img src="https://files.catbox.moe/s21b00.png" alt="會員登入"></a>
     <a href="#" class="icon-btn"><img src="https://files.catbox.moe/4mscbu.png" alt="購物車"></a>
