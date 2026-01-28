@@ -8,29 +8,14 @@
   body { margin:0; font-family: sans-serif; background:#f6f5f3; }
   a { text-decoration:none; color:inherit; }
 
-  /* 漢堡按鈕 */
+  /* 漢堡三槓 */
   .hamburger {
-    font-size:30px; cursor:pointer;
-    position:fixed; left:20px; top:15px; z-index:1001;
-  }
-
-  /* 左側滑出選單 */
-  .side-menu {
-    height: 100%;
-    width: 250px; 
-    position: fixed;
-    top: 0;
-    left: -250px; 
-    background: #fff;
-    overflow-x: hidden;
-    transition: 0.3s;
-    padding: 60px 20px;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
-    z-index: 1002; /* 高於 overlay */
-  }
-
-  .side-menu .close-btn {
-    font-size:30px; cursor:pointer; position:absolute; top:15px; right:20px;
+    font-size:30px;
+    cursor:pointer;
+    position:fixed;
+    left:20px;
+    top:15px;
+    z-index: 1003; /* 最上層 */
   }
 
   /* 遮罩 */
@@ -42,12 +27,36 @@
     height:100%;
     background: rgba(0,0,0,0);
     transition: 0.3s;
-    pointer-events: none; /* 初始點不到 */
+    pointer-events: none; 
     z-index: 1001; /* 在 side-menu 下 */
   }
   .overlay.active {
     background: rgba(0,0,0,0.3);
-    pointer-events: auto; /* 可點擊關閉 */
+    pointer-events: auto; 
+  }
+
+  /* 左側滑出選單 */
+  .side-menu {
+    height: 100%;
+    width: 250px; 
+    position: fixed;
+    top: 0;
+    left: -250px; /* 完全隱藏 */
+    background: #fff;
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding: 60px 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+    z-index: 1002; /* 遮罩上面，但比漢堡低 */
+  }
+
+  .side-menu .close-btn {
+    font-size:30px;
+    cursor:pointer;
+    position:absolute;
+    top:15px;
+    right:20px;
+    z-index: 1002; /* 同 side-menu */
   }
 
   /* Header */
@@ -93,7 +102,7 @@
 <!-- 遮罩 -->
 <div class="overlay" id="overlay"></div>
 
-<!-- 漢堡按鈕 -->
+<!-- 漢堡三槓 -->
 <div class="hamburger" id="hamburger">&#9776;</div>
 
 <!-- 左側滑出選單 -->
@@ -178,20 +187,14 @@
   </div>
   <div class="social-icons">
     <h4>社群連結</h4>
-    <a href="https://www.facebook.com/profile.php?id=61555847716122" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="FB">
-    </a>
-    <a href="https://www.instagram.com/你的帳號" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="IG">
-    </a>
-    <a href="https://maps.app.goo.gl/JN4JNnEmxda1Jb988" target="_blank">
-      <img src="https://files.catbox.moe/x94k3b.png" alt="地圖">
-    </a>
+    <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="FB"></a>
+    <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="IG"></a>
+    <a href="#"><img src="https://files.catbox.moe/x94k3b.png" alt="地圖"></a>
   </div>
 </footer>
 
 <!-- 浮動聯絡按鈕 -->
-<a href="https://line.me/ti/p/~你的LineID" target="_blank" class="floating-btn">聯絡我們</a>
+<a href="#" class="floating-btn">聯絡我們</a>
 
 <script>
   // Hero 輪播圖
