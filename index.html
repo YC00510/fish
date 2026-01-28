@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>fish</title>
 <style>
-  body { margin:0; font-family:sans-serif; background:#f6f5f3; }
+  body { margin:0; font-family: sans-serif; background:#f6f5f3; }
   a { text-decoration:none; color:inherit; }
 
   /* Header */
@@ -20,67 +20,103 @@
     position:sticky;
     top:0;
     z-index:999;
-    flex-wrap:wrap;
   }
-  .header-left, .header-right { display:flex; align-items:center; gap:15px; flex-wrap:wrap; }
+  .header-left { display:flex; align-items:center; gap:15px; }
+  .header-right { display:flex; align-items:center; gap:15px; }
 
-/* 搜尋框 */
-.search-box {
-  display:flex;
-  align-items:center;
-  border:1px solid #ddd;
-  border-radius:25px;
-  overflow:hidden;
-  height:36px;
-}
+  /* 回首頁圖示 */
+  .home-btn img {
+    width:36px;
+    height:36px;
+    cursor:pointer;
+  }
 
-.search-box input {
-  border:none;
-  padding:0 10px;
-  outline:none;
-  height:100%;
-  font-size:14px;
-}
-
-.search-box button {
-  border:none;
-  background:#00c300;
-  cursor:pointer;
-  height:100%;
-  padding:0 10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition: background 0.3s;
-}
-
-.search-box button:hover {
-  background:#009900;
-}
-
-.search-box img {
-  display:block;
-  width:20px;
-  height:20px;
-}
-
-  /* 下拉選單 */
+  /* 下拉容器 */
   .dropdown { position: relative; }
-  .drop-btn { background:none; border:none; cursor:pointer; display:flex; align-items:center; gap:5px; font-size:16px; font-weight:bold; position:relative; }
-  .drop-btn img { width:28px; height:28px; object-fit:contain; }
-  .drop-btn::after { content: '▼'; font-size:12px; margin-left:5px; transition: transform 0.3s; }
-  .drop-btn.active::after { transform: rotate(180deg); }
-  .drop-menu {
-    position:absolute; top:40px; left:0; background:#fff; border:1px solid #ddd; border-radius:8px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.2); width:200px; display:none; opacity:0;
-    transform:translateY(-10px); transition:all 0.3s ease; z-index:1000; overflow:hidden;
+  .drop-btn {
+    background:none;
+    border:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:5px;
+    font-size:16px;
+    font-weight:bold;
   }
-  .drop-menu.show { display:block; opacity:1; transform:translateY(0); }
+  .drop-btn img {
+    width:28px;
+    height:28px;
+    object-fit:contain;
+  }
+  .drop-btn::after {
+    content: '▼';
+    font-size:12px;
+    margin-left:5px;
+    transition: transform 0.3s;
+  }
+  .drop-btn.active::after {
+    transform: rotate(180deg);
+  }
+  .drop-menu {
+    position: absolute;
+    top:40px;
+    left:0;
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.2);
+    width:200px;
+    display:none;
+    opacity:0;
+    transform:translateY(-10px);
+    transition: all 0.3s ease;
+    z-index:1000;
+    overflow:hidden;
+  }
+  .drop-menu.show {
+    display:block;
+    opacity:1;
+    transform:translateY(0);
+  }
   .drop-menu ul { list-style:none; margin:0; padding:10px 0; }
-  .drop-menu ul li a { display:block; padding:8px 15px; color:#333; transition:background 0.2s, color 0.2s; }
+  .drop-menu ul li a {
+    display:block;
+    padding:8px 15px;
+    color:#333;
+  }
   .drop-menu ul li a:hover { background:#00c300; color:#fff; }
 
-  /* 輪播圖 */
+  /* 搜尋框 */
+  .search-box {
+    display:flex;
+    align-items:center;
+    border:1px solid #ddd;
+    border-radius:25px;
+    overflow:hidden;
+    height:36px;
+  }
+  .search-box input {
+    border:none;
+    padding:0 10px;
+    outline:none;
+    height:100%;
+    font-size:14px;
+  }
+  .search-box button {
+    border:none;
+    background:#00c300;
+    cursor:pointer;
+    height:100%;
+    padding:0 10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition: background 0.3s;
+  }
+  .search-box button:hover { background:#009900; }
+  .search-box img { width:20px; height:20px; }
+
+  /* Hero 輪播圖 */
   .hero { position:relative; width:100%; max-height:500px; overflow:hidden; margin-top:10px; }
   .hero img { width:100%; height:400px; object-fit:cover; display:none; }
   .hero img.active { display:block; }
@@ -97,25 +133,24 @@
   footer div { min-width:150px; text-align:left; }
   footer h4 { margin-bottom:5px; }
   footer a { color:#fff; display:block; margin:3px 0; }
-  
+  .social-icons { text-align:left; }
+  .social-icons a { display:inline-block; margin-right:10px; }
 
-  /* 社群 icon */
-  .social-icons a img { width:24px; height:24px; vertical-align:middle; }
-  
-
-  /* floating button */
+  /* 浮動按鈕 */
   .floating-btn {
-    position:fixed; right:20px; bottom:130px;
-    background:#00c300; color:#fff; padding:12px 20px; border-radius:25px; font-weight:bold;
-    cursor:pointer; box-shadow:0 4px 8px rgba(0,0,0,0.3); transition:background 0.3s, transform 0.2s;
-    display:flex; align-items:center; gap:5px;
+    position:fixed;
+    right:20px;
+    bottom:60px;
+    background:#00c300;
+    color:#fff;
+    padding:12px 20px;
+    border-radius:25px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 4px 8px rgba(0,0,0,0.3);
+    transition: background 0.3s, transform 0.2s;
   }
-  .floating-btn:hover { background:#009900; transform:translateY(-2px); }
-
-  @media(max-width:768px){
-    .main-header { flex-wrap:wrap; }
-    .header-left, .header-right { flex-wrap:wrap; gap:10px; }
-  }
+  .floating-btn:hover { background:#009900; transform: translateY(-2px); }
 </style>
 </head>
 <body>
@@ -123,30 +158,19 @@
 <!-- Header -->
 <div class="main-header">
   <div class="header-left">
+    <!-- 回首頁 -->
+    <a href="#" class="home-btn"><img src="https://files.catbox.moe/xf1m7y.png" alt="首頁"></a>
+
+    <!-- 全部商品下拉 -->
     <div class="dropdown">
       <button class="drop-btn">
-        <img src="https://files.catbox.moe/xf1m7y.png" alt="icon">
-        全部商品
+        <img src="https://files.catbox.moe/xf1m7y.png" alt="icon"> 全部商品
       </button>
       <div class="drop-menu">
         <ul>
-          <li><a href="#">魚1</a></li>
-          <li><a href="#">魚2</a></li>
-          <li><a href="#">魚3</a></li>
-          <li><a href="#">魚4</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="dropdown">
-      <button class="drop-btn">
-        <img src="https://files.catbox.moe/xf1m7y.png" alt="icon">
-        熱門商品
-      </button>
-      <div class="drop-menu">
-        <ul>
-          <li><a href="#">熱門1</a></li>
-          <li><a href="#">熱門2</a></li>
-          <li><a href="#">熱門3</a></li>
+          <li><a href="product1.html">魚1</a></li>
+          <li><a href="product2.html">魚2</a></li>
+          <li><a href="product3.html">魚3</a></li>
         </ul>
       </div>
     </div>
@@ -157,14 +181,16 @@
     <a href="#" class="icon-btn"><img src="https://files.catbox.moe/4mscbu.png" alt="購物車" width="28" height="28"></a>
     <a href="#">商家簡介</a>
     <a href="#">最新消息</a>
+
+    <!-- 搜尋框 -->
     <div class="search-box">
-      <input type="text" placeholder="搜尋商品" id="searchInput">
-      <button id="searchBtn"><img src="https://files.catbox.moe/br4tv3.png" alt="搜尋" width="20" height="20"></button>
+      <input type="text" placeholder="搜尋商品..." id="searchInput">
+      <button id="searchBtn"><img src="https://files.catbox.moe/xf1m7y.png" alt="搜尋"></button>
     </div>
   </div>
-</div> <!-- header end -->
+</div>
 
-<!-- 輪播圖 -->
+<!-- Hero 輪播圖 -->
 <div class="hero">
   <img src="https://picsum.photos/1200/400?random=1" class="active" alt="活動1">
   <img src="https://picsum.photos/1200/400?random=2" alt="活動2">
@@ -174,17 +200,17 @@
 <!-- 商品展示 -->
 <div class="products">
   <div class="product-card">
-    <img src="https://picsum.photos/200/150?random=11" alt="商品1">
+    <a href="product1.html"><img src="https://picsum.photos/200/150?random=11" alt="商品1"></a>
     <h4>魚1</h4>
     <p>$100</p>
   </div>
   <div class="product-card">
-    <img src="https://picsum.photos/200/150?random=12" alt="商品2">
+    <a href="product2.html"><img src="https://picsum.photos/200/150?random=12" alt="商品2"></a>
     <h4>魚2</h4>
     <p>$120</p>
   </div>
   <div class="product-card">
-    <img src="https://picsum.photos/200/150?random=13" alt="商品3">
+    <a href="product3.html"><img src="https://picsum.photos/200/150?random=13" alt="商品3"></a>
     <h4>魚3</h4>
     <p>$150</p>
   </div>
@@ -207,8 +233,8 @@
   </div>
   <div>
     <h4>全部商品</h4>
-    <a href="#">魚1</a>
-    <a href="#">魚2</a>
+    <a href="product1.html">魚1</a>
+    <a href="product2.html">魚2</a>
   </div>
   <div>
     <h4>會員服務</h4>
@@ -224,76 +250,61 @@
 </footer>
 
 <!-- 浮動聯絡按鈕 -->
-<a href="#" class="floating-btn">
-  <img src="https://files.catbox.moe/zgeugh.png" alt="聯絡" style="width:20px; height:20px;">
-  聯絡我們
-</a>
+<a href="#" class="floating-btn">聯絡我們</a>
 
 <script>
-  // 輪播圖
   // Hero 輪播圖
-const heroImages = document.querySelectorAll('.hero img');
-let current = 0;
-setInterval(() => {
-  heroImages[current].classList.remove('active');
-  current = (current + 1) % heroImages.length;
-  heroImages[current].classList.add('active');
-}, 5000);
+  const heroImages = document.querySelectorAll('.hero img');
+  let current = 0;
+  setInterval(() => {
+    heroImages[current].classList.remove('active');
+    current = (current + 1) % heroImages.length;
+    heroImages[current].classList.add('active');
+  }, 5000);
 
-// Header 多下拉選單：同時只開一個
-const dropdowns = document.querySelectorAll('.dropdown');
-dropdowns.forEach(drop => {
-  const btn = drop.querySelector('.drop-btn');
-  const menu = drop.querySelector('.drop-menu');
+  // 下拉選單
+  const dropdowns = document.querySelectorAll('.dropdown');
+  dropdowns.forEach(drop => {
+    const btn = drop.querySelector('.drop-btn');
+    const menu = drop.querySelector('.drop-menu');
 
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-
-    // 關閉其他下拉
-    dropdowns.forEach(d => {
-      if(d !== drop){
-        d.querySelector('.drop-menu').classList.remove('show');
-        d.querySelector('.drop-btn').classList.remove('active');
-      }
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      dropdowns.forEach(d => {
+        if(d !== drop){
+          d.querySelector('.drop-menu').classList.remove('show');
+          d.querySelector('.drop-btn').classList.remove('active');
+        }
+      });
+      menu.classList.toggle('show');
+      btn.classList.toggle('active');
     });
-
-    // 切換自己
-    menu.classList.toggle('show');
-    btn.classList.toggle('active');
   });
-});
-
-// 點空白收起所有下拉
-document.addEventListener('click', () => {
-  dropdowns.forEach(d => {
-    d.querySelector('.drop-menu').classList.remove('show');
-    d.querySelector('.drop-btn').classList.remove('active');
+  document.addEventListener('click', () => {
+    dropdowns.forEach(d => {
+      d.querySelector('.drop-menu').classList.remove('show');
+      d.querySelector('.drop-btn').classList.remove('active');
+    });
   });
-});
+  document.querySelectorAll('.drop-menu').forEach(menu => {
+    menu.addEventListener('click', e => e.stopPropagation());
+  });
 
-// 點下拉內容不收起
-document.querySelectorAll('.drop-menu').forEach(menu => {
-  menu.addEventListener('click', e => e.stopPropagation());
-});
-
-// 商品搜尋（同一頁過濾）
-document.getElementById('searchBtn').addEventListener('click', () => {
-  const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+  // 商品搜尋（同一頁過濾 + 清空恢復）
   const products = document.querySelectorAll('.product-card');
-  products.forEach(card => {
-    const title = card.querySelector('h4').textContent.toLowerCase();
-    card.style.display = title.includes(keyword) ? 'block' : 'none';
-  });
-});
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
 
-// 可以按 Enter 鍵也觸發搜尋
-document.getElementById('searchInput').addEventListener('keypress', (e) => {
-  if(e.key === 'Enter'){
-    document.getElementById('searchBtn').click();
+  function filterProducts() {
+    const keyword = searchInput.value.trim().toLowerCase();
+    products.forEach(card => {
+      const title = card.querySelector('h4').textContent.toLowerCase();
+      card.style.display = keyword === '' || title.includes(keyword) ? 'block' : 'none';
+    });
   }
-});
 
+  searchBtn.addEventListener('click', filterProducts);
+  searchInput.addEventListener('keyup', filterProducts); // 即時搜尋
 </script>
-
 </body>
 </html>
