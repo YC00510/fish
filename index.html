@@ -121,7 +121,7 @@
   .hero {
   position: relative;
   width: 100%;
-  padding-top: 33.33%; /* 高度 = 寬度的 1/3 (比例可以調整) */
+  padding-top: 50vh; /* 高度 = 寬度的 1/3 (比例可以調整) */
   overflow: hidden;
 }
 
@@ -144,9 +144,7 @@
   .product-card p { margin:0; color:#333; font-weight:bold; }
 
   /* 熱銷魚 */
-  .best-seller { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; padding:20px; }
-  .best-seller h1 { margin:10px 0 5px; font-size:16px; } 
-  .best-seller {
+  .products-title {
   text-align:center;
   font-size:24px;
   font-weight:bold;
@@ -254,27 +252,26 @@
 </div>
 
 <!-- 商品展示 -->
+<h2 class="products-title">本周推薦魚款</h2>
+
 <div class="products">
-  <div class="best-seller">
-  <h1>熱賣魚種</h1>
-  
-</div>
   <div class="product-card">
-    <a href="product1.html"><img src="https://picsum.photos/200/150?random=11" alt="商品1"></a>
+    <img src="https://picsum.photos/200/150?random=11" alt="商品1">
     <h4>魚1</h4>
     <p>$100</p>
   </div>
   <div class="product-card">
-    <a href="product2.html"><img src="https://picsum.photos/200/150?random=12" alt="商品2"></a>
+    <img src="https://picsum.photos/200/150?random=12" alt="商品2">
     <h4>魚2</h4>
     <p>$120</p>
   </div>
   <div class="product-card">
-    <a href="product3.html"><img src="https://picsum.photos/200/150?random=13" alt="商品3"></a>
+    <img src="https://picsum.photos/200/150?random=13" alt="商品3">
     <h4>魚3</h4>
     <p>$150</p>
   </div>
 </div>
+
 
 <!-- Footer -->
 <footer>
