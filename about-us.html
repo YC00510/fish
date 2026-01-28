@@ -1,153 +1,51 @@
+<!-- 服務條款頁面 -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>使用條款 - 日日水族魚場</title>
-<link rel="stylesheet" href="style.css"> <!-- 共用 CSS -->
+<title>服務條款</title>
+<link rel="icon" href="https://files.catbox.moe/fwiva1.png" type="image/png">
 <style>
-  body { font-family: sans-serif; margin:0; padding:0; background:#f6f5f3; color:#333; }
-  main { padding:20px; max-width:1000px; margin:auto; }
-  h1 { text-align:center; margin-bottom:30px; color:#0055aa; }
-  
-  /* 條款卡片 */
-  .section { background:#fff; padding:20px; border-radius:12px; margin-bottom:15px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
-  .section h2 { cursor:pointer; display:flex; justify-content:space-between; align-items:center; font-size:18px; margin:0; color:#0055aa; }
-  .section h2 span { font-size:16px; transition: transform 0.3s; }
-  .section h2.active span { transform: rotate(90deg); }
-  .section-content { display:none; margin-top:10px; line-height:1.6; }
-  .section-content p { margin-bottom:10px; }
-
-  /* 浮動聯絡按鈕 */
-  .floating-btn { position: fixed; right: 20px; bottom: 20px; background:#00c300; color:#fff; padding:12px 18px; border-radius:50px; text-decoration:none; font-weight:bold; box-shadow:0 2px 6px rgba(0,0,0,0.3); z-index:1000; }
-  .floating-btn:hover { background:#00a000; }
-
+body { margin:0; font-family: 'Noto Sans', sans-serif; background:#f6f5f3; color:#333; line-height:1.6; }
+.container { max-width:900px; margin:50px auto; padding:20px; background:#fff; border-radius:15px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+h1, h2 { color:#4da6ff; }
+h1 { text-align:center; margin-bottom:30px; }
+ul { margin-left:20px; }
+footer { background:#333; color:#fff; padding:20px; text-align:center; margin-top:50px; border-radius:0 0 15px 15px; }
 </style>
 </head>
 <body>
 
-<!-- Header -->
-<header class="main-header" style="display:flex; align-items:center; padding:10px 20px; background:#fff; box-shadow:0 2px 5px rgba(0,0,0,0.1); position:sticky; top:0; z-index:999;">
-  <div class="hamburger" style="font-size:24px; cursor:pointer; margin-right:20px;">&#9776;</div>
-  <a href="#" class="icon-btn" style="margin-right:15px;"><img src="會員圖示" alt="會員" style="width:28px;"></a>
-  <a href="#"><img src="購物車圖示" alt="購物車" style="width:28px;"></a>
-  <a href="#" style="margin-left:auto; margin-right:15px;">商家簡介</a>
-  <a href="#">最新消息</a>
-</header>
+<div class="container">
+  <h1>服務條款</h1>
 
-<!-- 漢堡側邊選單 -->
-<div class="side-menu" id="sideMenu" style="height:100%; width:250px; position:fixed; top:0; left:-250px; background:#fff; overflow-x:hidden; transition:0.3s; padding:60px 20px; box-shadow:2px 0 5px rgba(0,0,0,0.2); z-index:1000;">
-  <div class="close-btn" id="closeBtn" style="font-size:24px; cursor:pointer; margin-bottom:20px;">&times;</div>
-  <h3>商品分類</h3>
-  <ul>
-    <li>魚1</li>
-    <li>魚2</li>
-    <li>魚3</li>
-    <li>魚4</li>
-    <li>魚5</li>
-    <li>魚6</li>
-    <li>魚7</li>
-    <li>魚8</li>
-    <li>魚9</li>
-    <li>魚10</li>
-    <li>魚11</li>
-    <li>魚12</li>
-    <li>魚13</li>
-  </ul>
+  <h2>1. 服務使用</h2>
+  <p>使用本網站即表示您同意遵守以下服務條款。您承諾不會將本網站用於任何非法或不當行為。</p>
+
+  <h2>2. 購物與付款</h2>
+  <p>所有商品資訊及價格均以網站公告為準。我們保留隨時修改商品資訊、價格或促銷活動的權利。</p>
+
+  <h2>3. 訂單取消與退換貨</h2>
+  <p>如需取消訂單或退換貨，請依照網站公告的流程辦理。本網站將依相關規定處理退款及退貨事宜。</p>
+
+  <h2>4. 隱私權保護</h2>
+  <p>我們承諾保護使用者個人資料，除非法律規定或您同意，不會將資料提供第三方使用。</p>
+
+  <h2>5. 知識產權</h2>
+  <p>本網站內容，包括文字、圖片、圖示、商標等，均受著作權及智慧財產權保護，未經授權不得任意使用。</p>
+
+  <h2>6. 責任限制</h2>
+  <p>本網站對於因使用網站服務而可能產生的任何直接或間接損害不承擔任何責任。</p>
+
+  <h2>7. 條款修改</h2>
+  <p>本公司保留隨時修改本服務條款的權利，修改後的條款會在網站公告，使用者繼續使用網站即表示同意新的條款。</p>
+
 </div>
 
-<main>
-<h1>日日水族魚場 - 使用條款與會員服務</h1>
-
-<!-- 條款卡片範例 -->
-<div class="section">
-  <h2>會員服務及權利義務 <span>&#9654;</span></h2>
-  <div class="section-content">
-    <p><strong>1. 歡迎來到本網站</strong><br>歡迎您光臨日日水族魚場網站...</p>
-    <p><strong>2. 購買須知</strong><br>商品性質較為特殊...</p>
-    <p><strong>3. 會員特權</strong><br>成為會員可享...</p>
-    <p><strong>4. 同意條款</strong><br>使用本網站服務即表示您同意條款...</p>
-    <p><strong>5. 未成年使用者</strong><br>若您未滿二十歲，請法定代理人同意後使用...</p>
-    <p><strong>6. 服務修改與終止</strong><br>本公司保留修改或終止會員服務的權利...</p>
-  </div>
-</div>
-
-<div class="section">
-  <h2>客戶帳號、密碼與安全 <span>&#9654;</span></h2>
-  <div class="section-content">
-    <p><strong>1. 註冊資料</strong><br>請提供正確資料，使用 LINE 登入需授權 Email。</p>
-    <p><strong>2. 帳號安全</strong><br>妥善保管帳號密碼，如遺失請立即修改。</p>
-  </div>
-</div>
-
-<div class="section">
-  <h2>智慧財產權 <span>&#9654;</span></h2>
-  <div class="section-content">
-    <p>網站軟體、程式及內容皆受保護，未經授權不得使用。</p>
-  </div>
-</div>
-
-<div class="section">
-  <h2>網路會員隱私權保障 <span>&#9654;</span></h2>
-  <div class="section-content">
-    <p><strong>1. 資料蒐集與利用</strong><br>蒐集資料用於行銷與會員管理。</p>
-    <p><strong>2. 個人資料保護</strong><br>未經同意不公開個資。</p>
-    <p><strong>3. 隱私保障</strong><br>採取合理措施保護個資安全。</p>
-  </div>
-</div>
-
-<div class="section">
-  <h2>暫停服務 <span>&#9654;</span></h2>
-  <div class="section-content">
-    <p><strong>1. 服務暫停或中斷</strong><br>因維護、違規或不可抗力事件可能暫停服務。</p>
-    <p><strong>2. 預知通知</strong><br>可預見的中斷將提前通知會員。</p>
-  </div>
-</div>
-
-<div class="section">
-  <h2>本條款之效力 <span>&#9654;</span></h2>
-  <div class="section-content">
-    <p>條款部分無效，其餘條款仍有效。</p>
-  </div>
-</div>
-
-</main>
-
-<!-- Footer -->
-<footer style="background:#fff; padding:20px; text-align:center; box-shadow:0 -2px 5px rgba(0,0,0,0.1); margin-top:20px;">
-  <p>© 2026 日日水族魚場 | <a href="#">服務條款</a> | <a href="#">會員服務</a></p>
-  <p>
-    <a href="https://www.facebook.com" target="_blank">FB</a> |
-    <a href="https://www.instagram.com" target="_blank">IG</a> |
-    <a href="https://goo.gl/maps/你的位置" target="_blank">商家地圖</a>
-  </p>
+<footer>
+  &copy; 2026 日日水族魚場 | 版權所有
 </footer>
-
-<!-- 浮動聯絡按鈕 -->
-<a href="https://line.me/ti/p/~你的LineID" target="_blank" class="floating-btn">聯絡我們</a>
-
-<script src="main.js"></script> <!-- 共用 JS -->
-<script>
-  // 漢堡側邊選單
-  const hamburger = document.querySelector('.hamburger');
-  const sideMenu = document.getElementById('sideMenu');
-  const closeBtn = document.getElementById('closeBtn');
-  hamburger.addEventListener('click', () => sideMenu.style.left = '0');
-  closeBtn.addEventListener('click', () => sideMenu.style.left = '-250px');
-  window.addEventListener('click', e => {
-    if(!sideMenu.contains(e.target) && !hamburger.contains(e.target)) sideMenu.style.left = '-250px';
-  });
-
-  // 條款折疊效果
-  const headers = document.querySelectorAll('.section h2');
-  headers.forEach(h => {
-    h.addEventListener('click', () => {
-      const content = h.nextElementSibling;
-      content.style.display = (content.style.display === 'block') ? 'none' : 'block';
-      h.classList.toggle('active');
-    });
-  });
-</script>
 
 </body>
 </html>
