@@ -248,14 +248,16 @@ footer a { color:#fff; display:block; margin:3px 0; }
 </div>
   
 <!-- 輪播圖 -->
-  <div class="hero">
-  <!-- 電腦版輪播 -->
- <img src="https://files.catbox.moe/ytn72p.png" class="hero-img desktop-only active">
- <img src="https://files.catbox.moe/94fwk9.png" class="hero-img desktop-only">
+<!-- 電腦 -->
+<div class="hero desktop-only">
+  <img src="https://files.catbox.moe/ytn72p.png" class="active">
+  <img src="https://files.catbox.moe/94fwk9.png">
+</div>
 
-  <!-- 手機版輪播 -->
-  <img src="https://files.catbox.moe/gazxu2.jpg" class="hero-img mobile-only">
-  <img src="https://files.catbox.moe/zbun2i.jpg" class="hero-img mobile-only">
+<!-- 手機 -->
+<div class="hero mobile-only">
+  <img src="https://files.catbox.moe/gazxu2.jpg" class="active">
+  <img src="https://files.catbox.moe/zbun2i.jpg">
 
   <div class="arrow left">&#10094;</div>
   <div class="arrow right">&#10095;</div>
@@ -302,21 +304,17 @@ footer a { color:#fff; display:block; margin:3px 0; }
 
 <script>
   // Hero 輪播
-  function getHeroImages() {
-  return document.querySelectorAll('.hero img:not([style*="display: none"])');
-}
-let heroImages = getHeroImages();
-let current = 0;
-function showHero(i){
-  heroImages.forEach((img,j)=> img.classList.toggle('active', i===j));
-}
-function refreshHero(){
-  heroImages = getHeroImages();
-  current = 0;
-  showHero(current);
-}
-window.addEventListener('resize', refreshHero);
-refreshHero();
+  document.querySelectorAll('.hero').forEach(hero => {
+  const imgs = hero.querySelectorAll('img');
+  let index = 0;
+
+  setInterval(() => {
+    imgs[index].classList.remove('active');
+    index = (index + 1) % imgs.length;
+    imgs[index].classList.add('active');
+  }, 3000);
+});
+;
 
 
 
