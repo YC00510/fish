@@ -130,14 +130,6 @@ footer a { color:#fff; display:block; margin:3px 0; }
 }
 .floating-btn:hover { background:#009900; transform: translateY(-2px); }
 
-/* 響應式 */
-@media (max-width: 768px) {
-  .floating-btn {
-    right: 16px;
-    bottom: 80px;      /* 往下 */
-    padding: 14px 18px;
-    font-size: 14px;
-  }
 
 
 
@@ -177,43 +169,61 @@ footer a { color:#fff; display:block; margin:3px 0; }
   font-weight:bold;
 }
 
-/* 手機版啟用 */
+
 @media (max-width: 768px) {
+
+  /* header */
   .header-left .dropdown,
   .header-center {
-    display:none;
+    display: none;
   }
 
   .menu-toggle {
-    display:block;
+    display: block;
   }
-}
 
-@media (max-width: 768px) {
+  /* hero */
   .hero {
-    height: 200px;      /* 手機版高度 */
-    max-height: none;   /* 取消電腦限制 */
+    height: 200px;
     border-radius: 10px;
   }
 
   .hero img {
     width: 100%;
     height: 100%;
-    object-fit: cover; 
+    object-fit: cover;
   }
-}    
 
- /* 預設：電腦 */
-.desktop-only { display:block; }
-.mobile-only { display:none; }
+  /* 浮動按鈕 */
+  .floating-btn {
+    right: 16px;
+    bottom: 80px;
+    padding: 14px 18px;
+    font-size: 14px;
+  }
 
-/* 手機切換 */
-@media (max-width: 768px) {
-  .desktop-only { display:none; }
-  .mobile-only { display:block; }
+  /* desktop / mobile 切換 */
+  .desktop-only { display: none; }
+  .mobile-only { display: block; }
 }
 
+
+
+ /* 電腦版預設 */
+.menu-toggle {
+  display: none;
 }
+
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
+
+
     
 </style>
 </head>
