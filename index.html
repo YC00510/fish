@@ -58,27 +58,17 @@ a { text-decoration:none; color:inherit; }
 .search-box button:hover { background:#004d4d; }
 .search-box img { width:20px; height:20px; }
 
-/* header-right */
+/* Header 右側 */
+.header-right a { margin-left:50px; }
+.header-right img { width:28px; height:28px; }
 .header-right {
-  display:flex;
-  align-items:center;
-  gap:10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-
-.header-right .search-box {
-  margin:0 10px;
+.header-right a {
+  margin-left: 0; 
 }
-
-/* 手機版 */
-@media (max-width: 768px) {
-  .desktop-only { display:none; }
-  .mobile-only { display:block; }
-
-  .header-left .dropdown {
-    display:none;
-  }
-}
-
 
 
 /* Hero 輪播圖 */
@@ -228,64 +218,44 @@ footer a { color:#fff; display:block; margin:3px 0; }
 
 <!-- Header -->
 <div class="main-header">
-  <!-- 左側：首頁 + dropdown -->
   <div class="header-left">
-    <a href="https://yc00510.github.io/fish/" class="home-btn">
-      <img src="https://files.catbox.moe/fwiva1.png" alt="首頁">
-    </a>
-
-    <div class="dropdown desktop-only">
+    <a href="https://yc00510.github.io/fish/" class="home-btn"><img src="https://files.catbox.moe/fwiva1.png" alt="首頁"></a>
+    <div class="dropdown">
       <button class="drop-btn"><img src="https://files.catbox.moe/xf1m7y.png"> 全部商品</button>
-      <div class="drop-menu">
-        <ul><li><a href="#">魚1</a></li><li><a href="#">魚2</a></li></ul>
-      </div>
+      <div class="drop-menu"><ul><li><a href="#">魚1</a></li><li><a href="#">魚2</a></li></ul></div>
     </div>
-
-    <div class="dropdown desktop-only">
+    <div class="dropdown">
       <button class="drop-btn"><img src="https://files.catbox.moe/xf1m7y.png"> 熱門商品</button>
-      <div class="drop-menu">
-        <ul><li><a href="#">人氣魚</a></li><li><a href="#">熱賣魚種</a></li></ul>
-      </div>
+      <div class="drop-menu"><ul><li><a href="#">人氣魚</a></li><li><a href="#">熱賣魚種</a></li></ul></div>
     </div>
-
-    <div class="dropdown desktop-only">
+    <div class="dropdown">
       <button class="drop-btn"><img src="https://files.catbox.moe/xf1m7y.png"> 精選魚類</button>
-      <div class="drop-menu">
-        <ul><li><a href="#">淡水魚</a></li><li><a href="#">海水魚</a></li></ul>
-      </div>
+      <div class="drop-menu"><ul><li><a href="#">淡水魚</a></li><li><a href="#">海水魚</a></li></ul></div>
     </div>
   </div>
 
-  <!-- 右側：會員 / 搜尋 / 購物車 -->
+
   <div class="header-right">
-    <button class="menu-toggle mobile-only">☰</button>
-
-    <a href="#"><img src="https://files.catbox.moe/s21b00.png" alt="會員登入"></a>
-
-    <!-- 電腦版搜尋 -->
-    <div class="search-box desktop-only">
-      <input type="text" placeholder="想找什麼呢?" id="desktopSearchInput">
-      <button id="desktopSearchBtn"><img src="https://files.catbox.moe/br4tv3.png" alt="搜尋"></button>
+    <button class="menu-toggle">☰</button>
+     <div class="search-box">
+      <input type="text" placeholder="想找什麼呢?" id="searchInput">
+      <button id="searchBtn"><img src="https://files.catbox.moe/br4tv3.png" alt="搜尋"></button>
     </div>
-
+    <a href="#"><img src="https://files.catbox.moe/s21b00.png" alt="會員登入"></a>
     <a href="#"><img src="https://files.catbox.moe/4mscbu.png" alt="購物車"></a>
   </div>
 </div>
-
-<!-- 手機版選單 -->
-<div class="mobile-menu">
-  <!-- 手機版搜尋 -->
-  <div class="search-box mobile-only" style="margin-bottom:15px;">
-    <input type="text" placeholder="想找什麼呢?" id="mobileSearchInput">
-    <button id="mobileSearchBtn"><img src="https://files.catbox.moe/br4tv3.png"></button>
+  
+  <div class="mobile-menu">
+  <div class="search-box" style="margin-bottom:15px;">
+    <input type="text" placeholder="想找什麼呢?" id="searchInput">
+     <button id="searchBtn"><img src="https://files.catbox.moe/br4tv3.png"></button>
   </div>
 
   <a href="#">全部商品</a>
   <a href="#">熱門商品</a>
   <a href="#">精選魚類</a>
 </div>
-
-
 <!-- 輪播圖 -->
 <!-- 電腦 -->
 <div class="hero desktop-only">
@@ -387,6 +357,10 @@ document.querySelectorAll('.hero').forEach(hero => {
   }
 });
 
+
+
+
+
 // Dropdown
 const dropdowns=document.querySelectorAll('.dropdown');
 dropdowns.forEach(drop=>{
@@ -401,31 +375,26 @@ document.addEventListener('click', ()=>{ dropdowns.forEach(d=>{ d.querySelector(
 document.querySelectorAll('.drop-menu').forEach(menu=>menu.addEventListener('click', e=>e.stopPropagation()));
 
 // 商品搜尋
-const products = document.querySelectorAll('.product-card');
-
-// 電腦版
-const desktopInput = document.getElementById('desktopSearchInput');
-const desktopBtn = document.getElementById('desktopSearchBtn');
-
-// 手機版
-const mobileInput = document.getElementById('mobileSearchInput');
-const mobileBtn = document.getElementById('mobileSearchBtn');
-
-function filterProducts(input){
-  const keyword = input.value.trim().toLowerCase();
+const products=document.querySelectorAll('.product-card');
+const searchInput=document.getElementById('searchInput');
+const searchBtn=document.getElementById('searchBtn');
+function filterProducts(){
+  const keyword=searchInput.value.trim().toLowerCase();
   products.forEach(card=>{
-    const title = card.querySelector('h4').textContent.toLowerCase();
+    const title=card.querySelector('h4').textContent.toLowerCase();
     card.style.display = (keyword==='' || title.includes(keyword)) ? 'block':'none';
   });
 }
+searchBtn.addEventListener('click', filterProducts);
+searchInput.addEventListener('keyup', filterProducts);
 
-// 綁定電腦版
-desktopBtn.addEventListener('click', ()=>filterProducts(desktopInput));
-desktopInput.addEventListener('keyup', ()=>filterProducts(desktopInput));
+ //手機切換控制 
+const toggleBtn = document.querySelector('.menu-toggle');
+const mobileMenu = document.querySelector('.mobile-menu');
 
-// 綁定手機版
-mobileBtn.addEventListener('click', ()=>filterProducts(mobileInput));
-mobileInput.addEventListener('keyup', ()=>filterProducts(mobileInput));
+toggleBtn.addEventListener('click', () => {
+  mobileMenu.classList.toggle('show');
+});
 
 
 </script>
