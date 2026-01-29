@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>fish</title>
 <link rel="icon" href="https://files.catbox.moe/fwiva1.png" type="image/png">
-<style>
+
+  
+  <style>
 /* 全域 */
 body { margin:0; font-family: 'Noto Sans', sans-serif; background:#f6f5f3; }
 a { text-decoration:none; color:inherit; }
@@ -24,10 +26,10 @@ a { text-decoration:none; color:inherit; }
   z-index:999;
   border-bottom-left-radius:15px;
   border-bottom-right-radius:15px;
+  flex-wrap: wrap;
 }
-
-.header-left { display:flex; align-items:center; gap:15px; }
-.nav-group { display:flex; align-items:center; gap:15px; } /* 確保橫排 */
+.header-left, .header-center, .header-right { display:flex; align-items:center; gap:15px; }
+.header-center { flex:1; justify-content:center; margin:5px 0; }
 .home-btn img { width:36px; height:36px; cursor:pointer; }
 
 /* Dropdown */
@@ -49,36 +51,68 @@ a { text-decoration:none; color:inherit; }
 .drop-menu ul li a { display:block; padding:8px 15px; color:#333; }
 .drop-menu ul li a:hover { background:#00c300; color:#fff; }
 
-/* 搜尋框與右側圖示 */
-.header-right { display:flex; align-items:center; gap:15px; margin-left: auto; }
-.search-box { display:flex; align-items:center; border:1px solid #ddd; border-radius:25px; overflow:hidden; height:36px; width:180px; }
-.search-box input { border:none; padding:0 10px; outline:none; height:100%; font-size:14px; width:100%; }
-.search-box button { border:none; background:#d1e0e0; cursor:pointer; height:100%; padding:0 10px; display:flex; align-items:center; }
+/* 搜尋框 */
+.search-box { display:flex; align-items:center; border:1px solid #ddd; border-radius:25px; overflow:hidden; height:36px; }
+.search-box input { border:none; padding:0 10px; outline:none; height:100%; font-size:14px; }
+.search-box button { border:none; background:#d1e0e0; cursor:pointer; height:100%; padding:0 10px; display:flex; align-items:center; justify-content:center; transition: background 0.3s; }
+.search-box button:hover { background:#004d4d; }
 .search-box img { width:20px; height:20px; }
-.right-icons { display:flex; align-items:center; gap:10px; }
-.right-icons img { width:28px; height:28px; }
 
-/* Hero 輪播圖 (格式還原) */
-.hero {
-  width:100%; max-width:1200px; margin:30px auto; position:relative;
-  overflow:hidden; max-height:400px; border-radius:30px; display:flex; align-items:center; justify-content:center;
+/* Header 右側 */
+.header-right a { margin-left:50px; }
+.header-right img { width:28px; height:28px; }
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-.hero img { max-width:100%; max-height:100%; object-fit:contain; display:none; }
+.header-right a {
+  margin-left: 0; 
+}
+
+
+/* Hero 輪播圖 */
+.hero {
+  width:100%;
+  max-width:1200px;
+  margin:30px auto;
+  position:relative;
+  overflow:hidden;
+  max-height:400px;  
+  border-radius:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.hero img {
+  max-width:100%;
+  max-height:120%;
+  object-fit:contain; 
+  display:none;
+}
+
 .hero img.active { display:block; }
+
 .hero .arrow {
   position:absolute; top:50%; transform:translateY(-50%);
   font-size:30px; color:white; background:rgba(0,0,0,0.3);
   border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer;
-  z-index: 10;
+  display:flex;
 }
 .hero .arrow.left { left:10px; }
 .hero .arrow.right { right:10px; }
+
+
+    
 
 /* 商品展示 */
 .products-title { text-align:center; font-size:24px; font-weight:bold; margin:20px 0 10px; color:#4da6ff; }
 .products { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; padding:20px; background:#fff; }
 .product-card { width:200px; background:#fafafa; border-radius:10px; padding:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
 .product-card img { width:100%; height:150px; object-fit:cover; border-radius:5px; }
+.product-card h4 { margin:10px 0 5px; font-size:16px; }
+.product-card p { margin:0; color:#333; font-weight:bold; }
 
 /* Footer */
 footer { background:#333; color:#fff; padding:20px; display:flex; flex-wrap:wrap; gap:20px; justify-content:space-between; }
@@ -92,151 +126,280 @@ footer a { color:#fff; display:block; margin:3px 0; }
 .floating-btn {
   position:fixed; right:20px; bottom:150px; background:#00c300; color:#fff;
   padding:12px 20px; border-radius:25px; font-weight:bold; cursor:pointer;
-  box-shadow:0 4px 8px rgba(0,0,0,0.3); transition: background 0.3s, transform 0.2s; z-index: 999;
+  box-shadow:0 4px 8px rgba(0,0,0,0.3); transition: background 0.3s, transform 0.2s;
+}
+.floating-btn:hover { background:#009900; transform: translateY(-2px); }
+
+/* 響應式 */
+@media (max-width: 768px) {
+  .floating-btn {
+    right: 16px;
+    bottom: 80px;      /* 往下 */
+    padding: 14px 18px;
+    font-size: 14px;
+  }
 }
 
-/* 響應式切換 */
-.desktop-only { display:flex; }
-.mobile-only { display:none; }
+
+/* ===== 手機版 Header ===== */
+.menu-toggle {
+  display:none;
+  font-size:26px;
+  background:none;
+  border:none;
+  cursor:pointer;
+}
+
+/* 手機版選單容器 */
+.mobile-menu {
+  max-height: 0;          /* 初始高度 0 */
+  overflow: hidden;       /* 超出的隱藏 */
+  background: #fff;
+  padding: 0 15px;        /* 上下 padding 初始為 0，展開時加 */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: max-height 0.3s ease, padding 0.3s ease; /* 動畫 */
+}
+
+/* 展開狀態 */
+.mobile-menu.show {
+  max-height: 500px;      /* 足夠裝下選單 */
+  padding: 15px;
+}
+
+
+.mobile-menu a {
+  display:block;
+  padding:10px 0;
+  border-bottom:1px solid #eee;
+  font-weight:bold;
+}
+
+/* 手機版啟用 */
+@media (max-width: 768px) {
+  .header-left .dropdown,
+  .header-center {
+    display:none;
+  }
+
+  .menu-toggle {
+    display:block;
+  }
+}
 
 @media (max-width: 768px) {
-  .desktop-only { display:none !important; }
+  .hero {
+    height: 200px;      /* 手機版高度 */
+    max-height: none;   /* 取消電腦限制 */
+    border-radius: 10px;
+  }
+
+  .hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+  }
+}    
+
+ /* 預設：電腦 */
+.desktop-only { display:block; }
+.mobile-only { display:none; }
+
+/* 手機切換 */
+@media (max-width: 768px) {
+  .desktop-only { display:none; }
   .mobile-only { display:block; }
-  .menu-toggle { display:block; font-size:26px; background:none; border:none; cursor:pointer; }
-  .mobile-menu { max-height: 0; overflow: hidden; background: #fff; padding: 0 15px; transition: all 0.3s ease; }
-  .mobile-menu.show { max-height: 500px; padding: 15px; border-bottom: 1px solid #ddd; }
-  .mobile-menu a { display:block; padding:10px 0; border-bottom:1px solid #eee; font-weight:bold; }
-  .hero { height: 200px; }
-  .hero img { object-fit: cover; }
-  .floating-btn { right: 16px; bottom: 80px; }
 }
+
+}
+    
 </style>
 </head>
 <body>
 
+<!-- Header -->
 <div class="main-header">
   <div class="header-left">
     <a href="https://yc00510.github.io/fish/" class="home-btn"><img src="https://files.catbox.moe/fwiva1.png" alt="首頁"></a>
-    <div class="nav-group desktop-only">
-      <div class="dropdown">
-        <button class="drop-btn"><img src="https://files.catbox.moe/xf1m7y.png"> 全部商品</button>
-        <div class="drop-menu"><ul><li><a href="#">魚1</a></li><li><a href="#">魚2</a></li></ul></div>
-      </div>
-      <div class="dropdown">
-        <button class="drop-btn"><img src="https://files.catbox.moe/xf1m7y.png"> 熱門商品</button>
-        <div class="drop-menu"><ul><li><a href="#">人氣魚</a></li><li><a href="#">熱賣魚種</a></li></ul></div>
-      </div>
-      <div class="dropdown">
-        <button class="drop-btn"><img src="https://files.catbox.moe/xf1m7y.png"> 精選魚類</button>
-        <div class="drop-menu"><ul><li><a href="#">淡水魚</a></li><li><a href="#">海水魚</a></li></ul></div>
-      </div>
+    <div class="dropdown">
+      <button class="drop-btn"><img src="https://files.catbox.moe/xf1m7y.png"> 全部商品</button>
+      <div class="drop-menu"><ul><li><a href="#">魚1</a></li><li><a href="#">魚2</a></li></ul></div>
+    </div>
+    <div class="dropdown">
+      <button class="drop-btn"><img src="https://files.catbox.moe/xf1m7y.png"> 熱門商品</button>
+      <div class="drop-menu"><ul><li><a href="#">人氣魚</a></li><li><a href="#">熱賣魚種</a></li></ul></div>
+    </div>
+    <div class="dropdown">
+      <button class="drop-btn"><img src="https://files.catbox.moe/xf1m7y.png"> 精選魚類</button>
+      <div class="drop-menu"><ul><li><a href="#">淡水魚</a></li><li><a href="#">海水魚</a></li></ul></div>
+    </div>
+  </div>
+
+
+  <div class="header-center">
+    <div class="search-box">
+      <input type="text" placeholder="想找什麼呢?" id="searchInput">
+      <button id="searchBtn"><img src="https://files.catbox.moe/br4tv3.png" alt="搜尋"></button>
     </div>
   </div>
 
   <div class="header-right">
-    <div class="search-box desktop-only">
-      <input type="text" placeholder="想找什麼呢?" id="searchInput">
-      <button id="searchBtn"><img src="https://files.catbox.moe/br4tv3.png"></button>
-    </div>
-    <div class="right-icons">
-      <button class="menu-toggle mobile-only">☰</button>
-      <a href="#"><img src="https://files.catbox.moe/s21b00.png" alt="會員"></a>
-      <a href="#"><img src="https://files.catbox.moe/4mscbu.png" alt="購物車"></a>
-    </div>
+    <button class="menu-toggle">☰</button>
+    <a href="#"><img src="https://files.catbox.moe/s21b00.png" alt="會員登入"></a>
+    <a href="#"><img src="https://files.catbox.moe/4mscbu.png" alt="購物車"></a>
   </div>
 </div>
-
-<div class="mobile-menu mobile-only">
-  <div class="search-box" style="width:100%; margin-bottom:15px;">
-    <input type="text" placeholder="想找什麼呢?" id="mobileSearchInput">
-    <button id="mobileSearchBtn">🔍</button>
+  
+  <div class="mobile-menu">
+  <div class="search-box" style="margin-bottom:15px;">
+    <input type="text" placeholder="想找什麼呢?" id="searchInput">
+     <button id="searchBtn"><img src="https://files.catbox.moe/br4tv3.png"></button>
   </div>
+
   <a href="#">全部商品</a>
   <a href="#">熱門商品</a>
   <a href="#">精選魚類</a>
 </div>
+<!-- 輪播圖 -->
+<!-- 電腦 -->
+<div class="hero desktop-only">
+  <img src="https://files.catbox.moe/ytn72p.png" class="active">
+  <img src="https://files.catbox.moe/94fwk9.png">
 
-<div class="hero">
-  <img src="https://files.catbox.moe/ytn72p.png" class="active desktop-only">
-  <img src="https://files.catbox.moe/94fwk9.png" class="desktop-only">
-  <img src="https://files.catbox.moe/gazxu2.jpg" class="mobile-only">
-  <img src="https://files.catbox.moe/zbun2i.jpg" class="mobile-only">
-  <div class="arrow left">❮</div>
-  <div class="arrow right">❯</div>
+   <div class="arrow left">&#10094;</div>
+  <div class="arrow right">&#10095;</div>
 </div>
 
+<!-- 手機 -->
+<div class="hero mobile-only">
+  <img src="https://files.catbox.moe/gazxu2.jpg" class="active">
+  <img src="https://files.catbox.moe/zbun2i.jpg">
+
+  <div class="arrow left">&#10094;</div>
+  <div class="arrow right">&#10095;</div>
+</div>
+
+
+<!-- 商品展示 -->
 <h2 class="products-title">熱銷魚種</h2>
 <div class="products">
-  <div class="product-card"><a href="#"><img src="https://picsum.photos/200/150?random=11"><h4>魚1</h4><p>$100</p></a></div>
-  <div class="product-card"><a href="#"><img src="https://picsum.photos/200/150?random=12"><h4>魚2</h4><p>$120</p></a></div>
-  <div class="product-card"><a href="#"><img src="https://picsum.photos/200/150?random=13"><h4>魚3</h4><p>$150</p></a></div>
+  <div class="product-card"><a href="#"><img src="https://picsum.photos/200/150?random=11" alt="商品1"><h4>魚1</h4><p>$100</p></div></a>
+  <div class="product-card"><a href="#"><img src="https://picsum.photos/200/150?random=12" alt="商品2"><h4>魚2</h4><p>$120</p></div></a>
+  <div class="product-card"><a href="#"><img src="https://picsum.photos/200/150?random=13" alt="商品3"><h4>魚3</h4><p>$150</p></div></a>
 </div>
 
+<!-- Footer -->
 <footer>
-  <div><h4>服務條款</h4><a href="https://yc00510.github.io/fish/about-us.html">條款內容</a><a href="#">關於我們</a></div>
-  <div><h4>客戶留言板</h4><a href="#">留言內容</a></div>
-  <div><h4>最新消息</h4><a href="#">活動1</a><a href="#">活動2</a></div>
-  <div><h4>全部商品</h4><a href="product1.html">魚1</a><a href="product2.html">魚2</a></div>
-  <div><h4>會員服務</h4><a href="#">會員中心</a><a href="#">訂購紀錄</a></div>
-  <div class="social-icons">
-    <h4>社群連結</h4>
-    <a href="https://www.facebook.com/profile.php?id=61555847716122"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"></a>
-    <a href="https://www.instagram.com/zz.aqua.tw..."><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg"></a>
-    <a href="https://www.google.com/maps/place/%E6%97%A5%E6%97%A5%E6%B0%B4%E6%97%8F%E6%BC%81%E5%A0%B4%EF%BC%88%E4%BF%AE%E8%BB%8A%E5%BB%A0%E5%85%A7%EF%BC%89%E2%80%94%E5%AD%94%E9%9B%80%E9%AD%9A%2F%E9%8C%A6%E9%AF%89%2F%E9%87%91%E9%AD%9A%2F%E7%87%88%E9%AD%9A%2F%E9%BE%8D%E9%AD%9A%2F%E8%A7%80%E8%B3%9E%E9%AD%9A/data=!4m2!3m1!1s0x0:0x7b5f188bdb001bab?sa=X&ved=1t:2428&hl=zh-Hant-TW&ictx=111"><img src="https://files.catbox.moe/x94k3b.png"></a>
+  <div><h4>服務條款</h4>
+    <a href="https://yc00510.github.io/fish/about-us.html">條款內容</a>
+    <a href="#">關於我們</a></div>
+  <div><h4>客戶留言板</h4>
+    <a href="#">留言內容</a></div>
+  <div><h4>最新消息</h4>
+    <a href="#">活動1</a>
+    <a href="#">活動2</a></div>
+  <div><h4>全部商品</h4>
+    <a href="product1.html">魚1</a>
+    <a href="product2.html">魚2</a></div>
+  <div><h4>會員服務</h4>
+    <a href="#">會員中心</a>
+    <a href="#">訂購紀錄</a></div>
+  <div class="social-icons"><h4>社群連結</h4>
+    <a href="https://www.facebook.com/profile.php?id=61555847716122"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="FB"></a>
+    <a href="https://www.instagram.com/zz.aqua.tw?fbclid=IwY2xjawPnH2FleHRuA2FlbQIxMABicmlkETExMjVzOUxibnZHOVZOb3lZc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHkKcuKgiVYETFBe3t2Tz7DoJeR7DrEQZ7KZER-MTv539Nca7QJFao5yt77wO_aem_hOfuhTdbvwHk-7lJqS7NAg"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="IG"></a>
+    <a href="https://www.google.com/maps/place/%E6%97%A5%E6%97%A5%E6%B0%B4%E6%97%8F%E6%BC%81%E5%A0%B4%EF%BC%88%E4%BF%AE%E8%BB%8A%E5%BB%A0%E5%85%A7%EF%BC%89%E2%80%94%E5%AD%94%E9%9B%80%E9%AD%9A%2F%E9%8C%A6%E9%AF%89%2F%E9%87%91%E9%AD%9A%2F%E7%87%88%E9%AD%9A%2F%E9%BE%8D%E9%AD%9A%2F%E8%A7%80%E8%B3%9E%E9%AD%9A/data=!4m2!3m1!1s0x0:0x7b5f188bdb001bab?sa=X&ved=1t:2428&hl=zh-Hant-TW&ictx=111"><img src="https://files.catbox.moe/x94k3b.png" alt="地圖"></a>
   </div>
 </footer>
 
-<a href="#" class="floating-btn"><img src="https://files.catbox.moe/zgeugh.png" style="width:20px; vertical-align:middle; margin-right:6px;">聯絡我們</a>
+<!-- 浮動聯絡按鈕 -->
+<a href="#" class="floating-btn">
+  <img src="https://files.catbox.moe/zgeugh.png" alt="聯絡" style="width:20px; vertical-align:middle; margin-right:6px;">
+  
+</a>
+
 
 <script>
-// 1. 輪播邏輯
-function initHero() {
-  const hero = document.querySelector('.hero');
-  const getImgs = () => Array.from(hero.querySelectorAll('img')).filter(img => window.getComputedStyle(img).display !== 'none');
-  let imgs = getImgs();
+ // Hero 輪播
+document.querySelectorAll('.hero').forEach(hero => {
+  const imgs = hero.querySelectorAll('img');
+  const leftArrow = hero.querySelector('.arrow.left');
+  const rightArrow = hero.querySelector('.arrow.right');
   let index = 0;
 
-  function show(i) {
+  // 自動輪播
+  let interval = setInterval(nextSlide, 3000);
+
+  function showSlide(i) {
     imgs.forEach(img => img.classList.remove('active'));
-    if (imgs[i]) imgs[i].classList.add('active');
-    index = i;
+    imgs[i].classList.add('active');
   }
 
-  hero.querySelector('.right').onclick = () => show((index + 1) % imgs.length);
-  hero.querySelector('.left').onclick = () => show((index - 1 + imgs.length) % imgs.length);
-  setInterval(() => { imgs = getImgs(); show((index + 1) % imgs.length); }, 3000);
-}
+  function nextSlide() {
+    index = (index + 1) % imgs.length;
+    showSlide(index);
+  }
 
-// 2. 選單功能
-document.querySelector('.menu-toggle').onclick = (e) => {
-  e.stopPropagation();
-  document.querySelector('.mobile-menu').classList.toggle('show');
-};
+  function prevSlide() {
+    index = (index - 1 + imgs.length) % imgs.length;
+    showSlide(index);
+  }
 
-document.querySelectorAll('.drop-btn').forEach(btn => {
-  btn.onclick = (e) => {
-    e.stopPropagation();
-    btn.nextElementSibling.classList.toggle('show');
-    btn.classList.toggle('active');
-  };
+  // 箭頭控制
+  if (leftArrow) leftArrow.addEventListener('click', () => {
+    prevSlide();
+    resetInterval();
+  });
+  if (rightArrow) rightArrow.addEventListener('click', () => {
+    nextSlide();
+    resetInterval();
+  });
+
+  // 點箭頭後重置自動輪播計時
+  function resetInterval() {
+    clearInterval(interval);
+    interval = setInterval(nextSlide, 3000);
+  }
 });
 
-window.onclick = () => {
-  document.querySelectorAll('.drop-menu').forEach(m => m.classList.remove('show'));
-  document.querySelector('.mobile-menu').classList.remove('show');
-};
 
-// 3. 搜尋
-function filter(input) {
-  const k = input.value.toLowerCase();
-  document.querySelectorAll('.product-card').forEach(c => {
-    c.style.display = c.querySelector('h4').innerText.toLowerCase().includes(k) ? 'block' : 'none';
+
+
+
+// Dropdown
+const dropdowns=document.querySelectorAll('.dropdown');
+dropdowns.forEach(drop=>{
+  const btn=drop.querySelector('.drop-btn'); const menu=drop.querySelector('.drop-menu');
+  btn.addEventListener('click', e=>{
+    e.stopPropagation();
+    dropdowns.forEach(d=>{ if(d!==drop){ d.querySelector('.drop-menu').classList.remove('show'); d.querySelector('.drop-btn').classList.remove('active'); }});
+    menu.classList.toggle('show'); btn.classList.toggle('active');
+  });
+});
+document.addEventListener('click', ()=>{ dropdowns.forEach(d=>{ d.querySelector('.drop-menu').classList.remove('show'); d.querySelector('.drop-btn').classList.remove('active'); }); });
+document.querySelectorAll('.drop-menu').forEach(menu=>menu.addEventListener('click', e=>e.stopPropagation()));
+
+// 商品搜尋
+const products=document.querySelectorAll('.product-card');
+const searchInput=document.getElementById('searchInput');
+const searchBtn=document.getElementById('searchBtn');
+function filterProducts(){
+  const keyword=searchInput.value.trim().toLowerCase();
+  products.forEach(card=>{
+    const title=card.querySelector('h4').textContent.toLowerCase();
+    card.style.display = (keyword==='' || title.includes(keyword)) ? 'block':'none';
   });
 }
-document.getElementById('searchInput').onkeyup = (e) => filter(e.target);
-document.getElementById('mobileSearchInput').onkeyup = (e) => filter(e.target);
+searchBtn.addEventListener('click', filterProducts);
+searchInput.addEventListener('keyup', filterProducts);
 
-window.onload = initHero;
+ //手機切換控制 
+const toggleBtn = document.querySelector('.menu-toggle');
+const mobileMenu = document.querySelector('.mobile-menu');
+
+toggleBtn.addEventListener('click', () => {
+  mobileMenu.classList.toggle('show');
+});
+
+
 </script>
 </body>
 </html>
