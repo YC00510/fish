@@ -321,18 +321,48 @@ footer a { color:#fff; display:block; margin:3px 0; }
 
 
 <script>
-  // Hero 輪播
-  document.querySelectorAll('.hero').forEach(hero => {
+ // Hero 輪播
+document.querySelectorAll('.hero').forEach(hero => {
   const imgs = hero.querySelectorAll('img');
+  const leftArrow = hero.querySelector('.arrow.left');
+  const rightArrow = hero.querySelector('.arrow.right');
   let index = 0;
 
-  setInterval(() => {
-    imgs[index].classList.remove('active');
+  // 自動輪播
+  let interval = setInterval(nextSlide, 3000);
+
+  function showSlide(i) {
+    imgs.forEach(img => img.classList.remove('active'));
+    imgs[i].classList.add('active');
+  }
+
+  function nextSlide() {
     index = (index + 1) % imgs.length;
-    imgs[index].classList.add('active');
-  }, 3000);
+    showSlide(index);
+  }
+
+  function prevSlide() {
+    index = (index - 1 + imgs.length) % imgs.length;
+    showSlide(index);
+  }
+
+  // 箭頭控制
+  if (leftArrow) leftArrow.addEventListener('click', () => {
+    prevSlide();
+    resetInterval();
+  });
+  if (rightArrow) rightArrow.addEventListener('click', () => {
+    nextSlide();
+    resetInterval();
+  });
+
+  // 點箭頭後重置自動輪播計時
+  function resetInterval() {
+    clearInterval(interval);
+    interval = setInterval(nextSlide, 3000);
+  }
 });
-;
+
 
 
 
