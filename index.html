@@ -98,6 +98,7 @@ a { text-decoration:none; color:inherit; }
   position:absolute; top:50%; transform:translateY(-50%);
   font-size:30px; color:white; background:rgba(0,0,0,0.3);
   border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer;
+  display:flex;
 }
 .hero .arrow.left { left:10px; }
 .hero .arrow.right { right:10px; }
@@ -209,7 +210,7 @@ footer a { color:#fff; display:block; margin:3px 0; }
 
 /* 手機切換 */
 @media (max-width: 768px) {
-  .desktop-only { display:none; }
+  .desktop-only { display:block; }
   .mobile-only { display:block; }
 }
 
