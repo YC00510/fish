@@ -103,6 +103,27 @@ a { text-decoration:none; color:inherit; }
 .hero .arrow.left { left:10px; }
 .hero .arrow.right { right:10px; }
 
+/* ===== Hero 電腦版 ===== */
+.hero {
+  width: 100%;
+  max-width: 1200px;
+  height: 400px;
+  margin: 30px auto;
+  position: relative;
+  overflow: hidden;
+  border-radius: 30px;
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: none;
+}
+
+.hero img.active {
+  display: block;
+}
 
     
 
@@ -180,9 +201,13 @@ footer a { color:#fff; display:block; margin:3px 0; }
 
   .menu-toggle {
     display: block;
+    font-size: 26px;
+    background: none;
+    border: none;
+    cursor: pointer;
   }
 
-  /* hero */
+
   .hero {
     height: 200px;
     border-radius: 10px;
@@ -222,6 +247,7 @@ footer a { color:#fff; display:block; margin:3px 0; }
   display: none;
 }
 
+    
 
 
     
