@@ -138,7 +138,7 @@ footer a { color:#fff; display:block; margin:3px 0; }
     padding: 14px 18px;
     font-size: 14px;
   }
-}
+
 
 
 /* ===== 手機版 Header ===== */
@@ -256,7 +256,6 @@ footer a { color:#fff; display:block; margin:3px 0; }
   </div>
 </div>
 
-</div>
 <!-- 輪播圖 -->
 <!-- 電腦 -->
 <div class="hero desktop-only">
@@ -280,9 +279,28 @@ footer a { color:#fff; display:block; margin:3px 0; }
 <!-- 商品展示 -->
 <h2 class="products-title">熱銷魚種</h2>
 <div class="products">
-  <div class="product-card"><a href="#"><img src="https://picsum.photos/200/150?random=11" alt="商品1"><h4>魚1</h4><p>$100</p></div></a>
-  <div class="product-card"><a href="#"><img src="https://picsum.photos/200/150?random=12" alt="商品2"><h4>魚2</h4><p>$120</p></div></a>
-  <div class="product-card"><a href="#"><img src="https://picsum.photos/200/150?random=13" alt="商品3"><h4>魚3</h4><p>$150</p></div></a>
+  <div class="product-card">
+    <a href="#">
+      <img src="https://picsum.photos/200/150?random=11" alt="商品1">
+      <h4>魚1</h4>
+      <p>$100</p>
+      </a>
+  </div>
+
+  <div class="product-card">
+    <a href="#">
+      <img src="https://picsum.photos/200/150?random=12" alt="商品2">
+      <h4>魚2</h4>
+      <p>$120</p>
+  </div>
+</a>
+  <div class="product-card">
+    <a href="#">
+      <img src="https://picsum.photos/200/150?random=13" alt="商品3">
+      <h4>魚3</h4>
+      <p>$150</p>
+  </div>
+</a>
 </div>
 
 <!-- Footer -->
@@ -375,20 +393,28 @@ dropdowns.forEach(drop=>{
 document.addEventListener('click', ()=>{ dropdowns.forEach(d=>{ d.querySelector('.drop-menu').classList.remove('show'); d.querySelector('.drop-btn').classList.remove('active'); }); });
 document.querySelectorAll('.drop-menu').forEach(menu=>menu.addEventListener('click', e=>e.stopPropagation()));
 
-// 商品搜尋
-  const products=document.querySelectorAll('.product-card');
-const searchInput=document.getElementById('searchInput');
-const searchBtn=document.getElementById('searchBtn');
-function filterProducts(){
-  const keyword=searchInput.value.trim().toLowerCase();
-  products.forEach(card=>{
-    const title=card.querySelector('h4').textContent.toLowerCase();
-    card.style.display = (keyword==='' || title.includes(keyword)) ? 'block':'none';
+// 桌機搜尋
+const products = document.querySelectorAll('.product-card');
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
+
+function filterProducts() {
+  const keyword = searchInput.value.trim().toLowerCase();
+  products.forEach(card => {
+    const title = card.querySelector('h4').textContent.toLowerCase();
+    card.style.display = (keyword === '' || title.includes(keyword)) ? 'block' : 'none';
+  });
+}
+
+// 桌機搜尋事件
+searchBtn.addEventListener('click', filterProducts);
+searchInput.addEventListener('keyup', filterProducts);
+
 // 手機版搜尋
 const mobileSearchInput = document.getElementById('mobileSearchInput');
 const mobileSearchBtn = document.getElementById('mobileSearchBtn');
 
-function filterMobileProducts(){
+function filterMobileProducts() {
   const keyword = mobileSearchInput.value.trim().toLowerCase();
   products.forEach(card => {
     const title = card.querySelector('h4').textContent.toLowerCase();
@@ -396,8 +422,10 @@ function filterMobileProducts(){
   });
 }
 
+// 手機搜尋事件
 mobileSearchBtn.addEventListener('click', filterMobileProducts);
 mobileSearchInput.addEventListener('keyup', filterMobileProducts);
+
 
 
  //手機切換控制 
