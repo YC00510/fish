@@ -297,9 +297,13 @@ footer a { color:#fff; display:block; margin:3px 0; }
 <!-- 商品展示 -->
 <h2 class="products-title">熱銷魚種</h2>
 <div class="products">
-  <div class="product-card"><a href="#"><img src="https://picsum.photos/200/150?random=11" alt="商品1"><h4>魚1</h4><p>$100</p></div></a>
-  <div class="product-card"><a href="#"><img src="https://picsum.photos/200/150?random=12" alt="商品2"><h4>魚2</h4><p>$120</p></div></a>
-  <div class="product-card"><a href="#"><img src="https://picsum.photos/200/150?random=13" alt="商品3"><h4>魚3</h4><p>$150</p></div></a>
+  <div class="product-card"><img src="https://files.catbox.moe/bso9yh.jpg"data-hover="https://files.catbox.moe/cqmsnx.jpg" 
+     alt="葡萄眼白子銀帶" class="hover-img">
+    <h4>魚1</h4>
+    <p>$100</p>
+  </div>
+  <div class="product-card"><a href="https://yc00510.github.io/fish/fish-name2"><img src="https://picsum.photos/200/150?random=12" alt="商品2"><h4>魚2</h4><p>$120</p></div></a>
+  <div class="product-card"><a href="https://yc00510.github.io/fish/fish-name3"><img src="https://picsum.photos/200/150?random=13" alt="商品3"><h4>魚3</h4><p>$150</p></div></a>
 </div>
 
 <!-- Footer -->
@@ -418,6 +422,15 @@ const mobileMenu = document.querySelector('.mobile-menu');
 
 toggleBtn.addEventListener('click', () => {
   mobileMenu.classList.toggle('show');
+});
+
+//圖片變換
+  document.querySelectorAll('.hover-img').forEach(img=>{
+  const original = img.src;
+  const hover = img.dataset.hover;
+
+  img.addEventListener('mouseenter', ()=> img.src = hover);
+  img.addEventListener('mouseleave', ()=> img.src = original);
 });
 
 
