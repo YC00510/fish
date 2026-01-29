@@ -132,6 +132,44 @@ footer a { color:#fff; display:block; margin:3px 0; }
   .hero { height:250px; }
   .hero .arrow { font-size:24px; width:32px; height:32px; }
 }
+
+/* ===== 手機版 Header ===== */
+.menu-toggle {
+  display:none;
+  font-size:26px;
+  background:none;
+  border:none;
+  cursor:pointer;
+}
+
+/* 手機版選單容器 */
+.mobile-menu {
+  display:none;
+  background:#fff;
+  padding:15px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.15);
+}
+
+.mobile-menu a {
+  display:block;
+  padding:10px 0;
+  border-bottom:1px solid #eee;
+  font-weight:bold;
+}
+
+/* 手機版啟用 */
+@media (max-width: 768px) {
+  .header-left .dropdown,
+  .header-center {
+    display:none;
+  }
+
+  .menu-toggle {
+    display:block;
+  }
+}
+
+    
 </style>
 </head>
 <body>
@@ -153,6 +191,16 @@ footer a { color:#fff; display:block; margin:3px 0; }
       <div class="drop-menu"><ul><li><a href="#">淡水魚</a></li><li><a href="#">海水魚</a></li></ul></div>
     </div>
   </div>
+<div class="mobile-menu">
+  <div class="search-box" style="margin-bottom:15px;">
+    <input type="text" placeholder="想找什麼呢?">
+    <button><img src="https://files.catbox.moe/br4tv3.png"></button>
+  </div>
+
+  <a href="#">全部商品</a>
+  <a href="#">熱門商品</a>
+  <a href="#">精選魚類</a>
+</div>
 
   <div class="header-center">
     <div class="search-box">
@@ -162,6 +210,7 @@ footer a { color:#fff; display:block; margin:3px 0; }
   </div>
 
   <div class="header-right">
+    <button class="menu-toggle">☰</button>
     <a href="#"><img src="https://files.catbox.moe/s21b00.png" alt="會員登入"></a>
     <a href="#"><img src="https://files.catbox.moe/4mscbu.png" alt="購物車"></a>
   </div>
@@ -251,6 +300,16 @@ function filterProducts(){
 }
 searchBtn.addEventListener('click', filterProducts);
 searchInput.addEventListener('keyup', filterProducts);
+
+ //手機切換控制 
+const toggleBtn = document.querySelector('.menu-toggle');
+const mobileMenu = document.querySelector('.mobile-menu');
+
+toggleBtn.addEventListener('click', () => {
+  mobileMenu.style.display =
+    mobileMenu.style.display === 'block' ? 'none' : 'block';
+});
+
 </script>
 </body>
 </html>
