@@ -189,6 +189,17 @@ footer a { color:#fff; display:block; margin:3px 0; }
     object-fit: cover; 
   }
 }    
+
+ /* 預設：電腦 */
+.desktop-only { display:block; }
+.mobile-only { display:none; }
+
+/* 手機切換 */
+@media (max-width: 768px) {
+  .desktop-only { display:none; }
+  .mobile-only { display:block; }
+}
+   
     
 </style>
 </head>
@@ -235,14 +246,21 @@ footer a { color:#fff; display:block; margin:3px 0; }
     <a href="#"><img src="https://files.catbox.moe/4mscbu.png" alt="購物車"></a>
   </div>
 </div>
+  
+<!-- 輪播圖 -->
+  <div class="hero">
+  <!-- 電腦版輪播 -->
+ <img src="https://files.catbox.moe/ytn72p.png" class="hero-img desktop-only active">
+ <img src="https://files.catbox.moe/94fwk9.png" class="hero-img desktop-only">
 
-<!-- Hero 輪播圖 -->
-<div class="hero">
-  <img src="https://files.catbox.moe/ytn72p.png" alt="關於我們" class="active">
-  <img src="https://files.catbox.moe/94fwk9.png" alt="出貨須知">
+  <!-- 手機版輪播 -->
+  <img src="https://files.catbox.moe/gazxu2.jpg" class="hero-img mobile-only">
+  <img src="https://files.catbox.moe/zbun2i.jpg" class="hero-img mobile-only">
+
   <div class="arrow left">&#10094;</div>
   <div class="arrow right">&#10095;</div>
 </div>
+
 
 <!-- 商品展示 -->
 <h2 class="products-title">熱銷魚種</h2>
@@ -283,16 +301,25 @@ footer a { color:#fff; display:block; margin:3px 0; }
 
 
 <script>
-// Hero 輪播
-const heroImages = document.querySelectorAll('.hero img');
+  // Hero 輪播
+  function getHeroImages() {
+  return document.querySelectorAll('.hero img:not([style*="display: none"])');
+}
+let heroImages = getHeroImages();
 let current = 0;
-function showHero(i){ heroImages.forEach((img,j)=> img.classList.toggle('active', i===j)); }
-showHero(current);
-function nextHero(){ current=(current+1)%heroImages.length; showHero(current); }
-function prevHero(){ current=(current-1+heroImages.length)%heroImages.length; showHero(current); }
-let interval=setInterval(nextHero,5000);
-document.querySelector('.hero .arrow.right').addEventListener('click', ()=>{ nextHero(); clearInterval(interval); interval=setInterval(nextHero,5000); });
-document.querySelector('.hero .arrow.left').addEventListener('click', ()=>{ prevHero(); clearInterval(interval); interval=setInterval(nextHero,5000); });
+function showHero(i){
+  heroImages.forEach((img,j)=> img.classList.toggle('active', i===j));
+}
+function refreshHero(){
+  heroImages = getHeroImages();
+  current = 0;
+  showHero(current);
+}
+window.addEventListener('resize', refreshHero);
+refreshHero();
+
+
+
 
 // Dropdown
 const dropdowns=document.querySelectorAll('.dropdown');
