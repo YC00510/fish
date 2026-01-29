@@ -40,12 +40,12 @@ a { text-decoration:none; color:inherit; }
 .drop-menu ul li a { display:block; padding:8px 15px; color:#333; }
 .drop-menu ul li a:hover { background:#00c300; color:#fff; }
 
-/* 搜尋框 */
+/* 搜尋框 
 .search-box { display:flex; align-items:center; border:1px solid #ddd; border-radius:25px; overflow:hidden; height:36px; }
 .search-box input { border:none; padding:0 10px; outline:none; height:100%; font-size:14px; }
 .search-box button { border:none; background:#d1e0e0; cursor:pointer; height:100%; padding:0 10px; display:flex; align-items:center; justify-content:center; transition: background 0.3s; }
 .search-box button:hover { background:#004d4d; }
-.search-box img { width:20px; height:20px; }
+.search-box img { width:20px; height:20px; }*/
 
 /* Header 右側 */
 .header-right { display:flex; align-items:center; gap:10px; }
@@ -214,8 +214,8 @@ document.addEventListener('click', ()=>{
 });
 document.querySelectorAll('.drop-menu').forEach(menu=>menu.addEventListener('click', e=>e.stopPropagation()));
 
-// 搜尋功能 (範例，只影響首頁商品頁可改)
-const products=document.querySelectorAll('.product-card');
+// 搜尋功能 (只影響首頁商品頁可改)
+/*const products=document.querySelectorAll('.product-card');
 const searchInput=document.getElementById('searchInput');
 const searchBtn=document.getElementById('searchBtn');
 function filterProducts(){
@@ -228,7 +228,7 @@ function filterProducts(){
 if(searchBtn && searchInput){
   searchBtn.addEventListener('click', filterProducts);
   searchInput.addEventListener('keyup', filterProducts);
-}
+}*/
 </script>
 
 </body>
