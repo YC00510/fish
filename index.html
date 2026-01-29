@@ -210,12 +210,10 @@ footer a { color:#fff; display:block; margin:3px 0; }
 
 /* 手機切換 */
 @media (max-width: 768px) {
-  .desktop-only { display:block; }
+  .desktop-only { display:none; }
   .mobile-only { display:block; }
 }
 
-.hero .arrow {
-  display: flex !important;
 }
     
 </style>
@@ -269,6 +267,9 @@ footer a { color:#fff; display:block; margin:3px 0; }
 <div class="hero desktop-only">
   <img src="https://files.catbox.moe/ytn72p.png" class="active">
   <img src="https://files.catbox.moe/94fwk9.png">
+
+   <div class="arrow left">&#10094;</div>
+  <div class="arrow right">&#10095;</div>
 </div>
 
 <!-- 手機 -->
