@@ -152,11 +152,20 @@ footer a { color:#fff; display:block; margin:3px 0; }
 
 /* 手機版選單容器 */
 .mobile-menu {
-  display:none;
-  background:#fff;
-  padding:15px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.15);
+  max-height: 0;          /* 初始高度 0 */
+  overflow: hidden;       /* 超出的隱藏 */
+  background: #fff;
+  padding: 0 15px;        /* 上下 padding 初始為 0，展開時加 */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: max-height 0.3s ease, padding 0.3s ease; /* 動畫 */
 }
+
+/* 展開狀態 */
+.mobile-menu.show {
+  max-height: 500px;      /* 足夠裝下選單 */
+  padding: 15px;
+}
+
 
 .mobile-menu a {
   display:block;
@@ -386,9 +395,9 @@ const toggleBtn = document.querySelector('.menu-toggle');
 const mobileMenu = document.querySelector('.mobile-menu');
 
 toggleBtn.addEventListener('click', () => {
-  mobileMenu.style.display =
-    mobileMenu.style.display === 'block' ? 'none' : 'block';
+  mobileMenu.classList.toggle('show');
 });
+
 
 </script>
 </body>
