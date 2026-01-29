@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>fish</title>
+<title>魚市集</title>
 <link rel="icon" href="https://files.catbox.moe/fwiva1.png" type="image/png">
 
 <style>
@@ -122,6 +122,8 @@ footer a { color:#fff; display:block; margin:3px 0; }
 }
 .mobile-menu.show { max-height:500px; padding:15px; }
 .mobile-menu a { display:block; padding:10px 0; border-bottom:1px solid #eee; font-weight:bold; }
+
+/* 手機隱藏桌面元素 */
 @media (max-width: 768px) {
   .header-left .dropdown, .header-center { display:none; }
   .menu-toggle { display:block; }
@@ -144,7 +146,7 @@ footer a { color:#fff; display:block; margin:3px 0; }
     <a href="#" class="home-btn"><img src="https://files.catbox.moe/fwiva1.png" alt="首頁"></a>
     <div class="dropdown">
       <button class="drop-btn"><img src="https://files.catbox.moe/xf1m7y.png"> 全部商品</button>
-      <div class="drop-menu"><ul><li><a href="#">魚1</a><li><a href="#">魚2</a></li></ul></div>
+      <div class="drop-menu"><ul><li><a href="#">魚1</a></li><li><a href="#">魚2</a></li></ul></div>
     </div>
     <div class="dropdown">
       <button class="drop-btn"><img src="https://files.catbox.moe/xf1m7y.png"> 熱門商品</button>
@@ -194,6 +196,7 @@ footer a { color:#fff; display:block; margin:3px 0; }
   <div class="product-card"><a href="#"><img src="https://picsum.photos/200/150?random=11" alt="商品1"><h4>魚1</h4><p>$100</p></a></div>
   <div class="product-card"><a href="#"><img src="https://picsum.photos/200/150?random=12" alt="商品2"><h4>魚2</h4><p>$120</p></a></div>
   <div class="product-card"><a href="#"><img src="https://picsum.photos/200/150?random=13" alt="商品3"><h4>魚3</h4><p>$150</p></a></div>
+  <div class="product-card"><a href="#"><img src="https://picsum.photos/200/150?random=14" alt="商品4"><h4>魚4</h4><p>$180</p></a></div>
 </div>
 
 <!-- Footer -->
@@ -211,12 +214,12 @@ footer a { color:#fff; display:block; margin:3px 0; }
 </footer>
 
 <!-- 浮動聯絡按鈕 -->
-<a href="#" class="floating-btn"><img src="https://files.catbox.moe/zgeugh.png" alt="聯絡" style="width:20px; vertical-align:middle; margin-right:6px;"></a>
+<a href="#" class="floating-btn"><img src="https://files.catbox.moe/zgeugh.png" alt="聯絡" style="width:20px; vertical-align:middle; margin-right:6px;">聯絡我們</a>
 
 <script>
-// 輪播圖 (只控制有顯示的 hero)
+// 輪播圖
 document.querySelectorAll('.hero').forEach(hero => {
-  if (hero.offsetParent === null) return; // 沒顯示就跳過
+  if (hero.offsetParent === null) return;
   const imgs = hero.querySelectorAll('img');
   const leftArrow = hero.querySelector('.arrow.left');
   const rightArrow = hero.querySelector('.arrow.right');
@@ -227,20 +230,18 @@ document.querySelectorAll('.hero').forEach(hero => {
     imgs.forEach(img => img.classList.remove('active'));
     imgs[i].classList.add('active');
   }
-
   function nextSlide(){ index = (index+1)%imgs.length; showSlide(index); }
   function prevSlide(){ index = (index-1+imgs.length)%imgs.length; showSlide(index); }
-
   if(leftArrow) leftArrow.addEventListener('click',()=>{ prevSlide(); resetInterval(); });
   if(rightArrow) rightArrow.addEventListener('click',()=>{ nextSlide(); resetInterval(); });
-
   function resetInterval(){ clearInterval(interval); interval=setInterval(nextSlide,3000); }
 });
 
 // Dropdown
 const dropdowns=document.querySelectorAll('.dropdown');
 dropdowns.forEach(drop=>{
-  const btn=drop.querySelector('.drop-btn'); const menu=drop.querySelector('.drop-menu');
+  const btn=drop.querySelector('.drop-btn'); 
+  const menu=drop.querySelector('.drop-menu');
   btn.addEventListener('click', e=>{
     e.stopPropagation();
     dropdowns.forEach(d=>{ if(d!==drop){ d.querySelector('.drop-menu').classList.remove('show'); d.querySelector('.drop-btn').classList.remove('active'); }});
