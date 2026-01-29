@@ -1,3 +1,4 @@
+我的手機搜尋功能沒辦法用
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -52,10 +53,11 @@ a { text-decoration:none; color:inherit; }
 .drop-menu ul li a:hover { background:#00c300; color:#fff; }
 
 /* 搜尋框 */
-.header-right { display:flex; align-items:center; gap:15px; margin-left: auto; }
-.search-box { display:flex; align-items:center; border:1px solid #ddd; border-radius:25px; overflow:hidden; height:36px; width:180px; }
-.search-box input { border:none; padding:0 10px; outline:none; height:100%; font-size:14px; width:100%; }
-.search-box button { border:none; background:#d1e0e0; cursor:pointer; height:100%; padding:0 10px; display:flex; align-items:center; }
+.search-box { display:flex; align-items:center; border:1px solid #ddd; border-radius:25px; overflow:hidden; height:36px; }
+.search-box input { border:none; padding:0 10px; outline:none; height:100%; font-size:14px; }
+.search-box button { border:none; background:#d1e0e0; cursor:pointer; height:100%; padding:0 10px; display:flex; align-items:center; justify-content:center; transition: background 0.3s; }
+.search-box button:hover { background:#004d4d; }
+.search-box img { width:20px; height:20px; }
 
 /* Header 右側 */
 .header-right a { margin-left:50px; }
@@ -68,8 +70,7 @@ a { text-decoration:none; color:inherit; }
 .header-right a {
   margin-left: 0; 
 }
-.right-icons { display:flex; align-items:center; gap:10px; }
-.right-icons img { width:28px; height:28px; }
+
 
 /* Hero 輪播圖 */
 .hero {
@@ -399,7 +400,6 @@ toggleBtn.addEventListener('click', () => {
   mobileMenu.classList.toggle('show');
 });
 
-  
 
 </script>
 </body>
