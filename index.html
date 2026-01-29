@@ -380,6 +380,14 @@ document.addEventListener('click', ()=>{ dropdowns.forEach(d=>{ d.querySelector(
 document.querySelectorAll('.drop-menu').forEach(menu=>menu.addEventListener('click', e=>e.stopPropagation()));
 
 // 商品搜尋
+  const products=document.querySelectorAll('.product-card');
+const searchInput=document.getElementById('searchInput');
+const searchBtn=document.getElementById('searchBtn');
+function filterProducts(){
+  const keyword=searchInput.value.trim().toLowerCase();
+  products.forEach(card=>{
+    const title=card.querySelector('h4').textContent.toLowerCase();
+    card.style.display = (keyword==='' || title.includes(keyword)) ? 'block':'none';
 // 手機版搜尋
 const mobileSearchInput = document.getElementById('mobileSearchInput');
 const mobileSearchBtn = document.getElementById('mobileSearchBtn');
